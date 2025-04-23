@@ -42,10 +42,21 @@ export const bannerApi = createApi({
 
     deleteBanner: builder.mutation({
         query: (id) => ({
-            url: `banner/${id}`,
+            url: `/banner/${id}`,
+            method: 'DELETE'
+        })
+    }),
+
+      // Delete all banner
+
+      deleteAllBanner: builder.mutation({
+        query: () => ({
+            url: `/banner`,
             method: 'DELETE'
         })
     })
+
+
 
 
   }),
@@ -57,5 +68,6 @@ export const {
     useAddNewBannerMutation, 
     useUpdateBannerMutation,
     useDeleteBannerMutation,
+    useDeleteAllBannerMutation
   } = bannerApi; 
   
