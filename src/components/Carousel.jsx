@@ -1,35 +1,23 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-
-
-  // Sample carousel slides
-  const slides = [
-    {
-      id: 1,
-      title: "Learn at Your Own Pace",
-      description: "Access thousands of courses anytime, anywhere",
-      image: "/placeholder.svg?height=500&width=1200",
-      cta: "Start Learning",
-    },
-    {
-      id: 2,
-      title: "Become an Expert",
-      description: "Master in-demand skills with our expert instructors",
-      image: "/placeholder.svg?height=500&width=1200",
-      cta: "Explore Courses",
-    },
-    {
-      id: 3,
-      title: "Special Discount",
-      description: "Get 50% off on all courses this week",
-      image: "/placeholder.svg?height=500&width=1200",
-      cta: "Claim Offer",
-    },
-  ]
+import { useGetAllBannerQuery } from "@/app/service/bannderData"
 
 export function Carousel() {
   const [currentSlide, setCurrentSlide] = useState(0)
+  const { data, isError, isLoading } = useGetAllBannerQuery()
+
+  const slides = data?.[0]?.images || []
+
+  useEffect(() => {
+    if (slides.length === 0) return
+
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1))
+    }, 5000)
+
+    return () => clearInterval(interval)
+  }, [slides.length])
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1))
@@ -39,13 +27,8 @@ export function Carousel() {
     setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1))
   }
 
-  // Auto-advance slides
-  useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide()
-    }, 5000)
-    return () => clearInterval(interval)
-  }, [])
+  if (isLoading) return <h1>Loading...</h1>
+  if (isError || !Array.isArray(data)) return <h1>Oops! Something went wrong.</h1>
 
   return (
     <div className="relative overflow-hidden">
@@ -53,22 +36,13 @@ export function Carousel() {
         className="flex transition-transform duration-500 ease-in-out"
         style={{ transform: `translateX(-${currentSlide * 100}%)` }}
       >
-        {slides.map((slide) => (
-          <div key={slide.id} className="w-full flex-shrink-0 relative">
+        {slides.map((slide, index) => (
+          <div key={index} className="w-full flex-shrink-0 relative">
             <img
-              src={slide.image || "/placeholder.svg"}
-              alt={slide.title}
-              width={1200}
-              height={500}
+              src={`http://localhost:3000/images/${slide}`}
+              alt={"carousel image"}
               className="w-full h-[300px] md:h-[400px] lg:h-[500px] object-cover"
             />
-            <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-              <div className="text-center text-white p-6 max-w-3xl">
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">{slide.title}</h2>
-                <p className="text-lg md:text-xl mb-6">{slide.description}</p>
-                <Button size="lg">{slide.cta}</Button>
-              </div>
-            </div>
           </div>
         ))}
       </div>
