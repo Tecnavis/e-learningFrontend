@@ -1,13 +1,10 @@
-import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { BookOpen, Menu, Search, User } from "lucide-react"
 import { Link, NavLink } from "react-router-dom"
 import ModeToggle from "./ModeToggle"
 
 export function Navbar() {
-  const [isSearchOpen, setIsSearchOpen] = useState(false)
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 flex justify-center items-center">
@@ -30,15 +27,6 @@ export function Navbar() {
                   Home
                 </NavLink>
                 <Link href="#" className="hover:text-primary">
-                  Courses
-                </Link>
-                <Link href="#" className="hover:text-primary">
-                  Categories
-                </Link>
-                <Link href="#" className="hover:text-primary">
-                  Instructors
-                </Link>
-                <Link href="#" className="hover:text-primary">
                   About Us
                 </Link>
                 <Link href="#" className="hover:text-primary">
@@ -58,35 +46,16 @@ export function Navbar() {
               Home
             </NavLink>
             <Link href="#" className="font-medium transition-colors hover:text-primary">
-              Courses
+              About Us
             </Link>
             <Link href="#" className="font-medium transition-colors hover:text-primary">
-              Categories
+              Contact
             </Link>
-            <Link href="#" className="font-medium transition-colors hover:text-primary">
-              Instructors
-            </Link>
+           
           </nav>
         </div>
 
         <div className="flex items-center gap-2">
-          {/* {isSearchOpen ? (
-            <div className="relative w-full max-w-sm">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search courses..."
-                className="w-full pl-8 pr-4"
-                autoFocus
-                onBlur={() => setIsSearchOpen(false)}
-              />
-            </div>
-          ) : (
-            <Button variant="ghost" size="icon" onClick={() => setIsSearchOpen(true)}>
-              <Search className="h-5 w-5" />
-              <span className="sr-only">Search</span>
-            </Button>
-          )} */}
 
           <ModeToggle />
           <Button variant="ghost" size="icon">
@@ -95,7 +64,6 @@ export function Navbar() {
             <span className="sr-only">Account</span>
           </Button>
 
-          <Button className="hidden md:flex">Sign Up</Button>
         </div>
       </div>
     </header>

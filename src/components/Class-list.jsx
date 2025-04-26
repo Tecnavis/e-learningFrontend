@@ -1,111 +1,76 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { BookOpen, Users, Clock, ChevronRight } from "lucide-react"
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { Book, NotebookText } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card"
 import { useNavigate } from "react-router-dom"
+import { useGetAllSyllbusQuery } from "@/app/service/syllbusData"
 
+function ClassCard({ id,no, title, subjects = 0, color = "bg-blue-500" }) {
+  const [isHovered, setIsHovered] = useState(false)
+  const navigate = useNavigate()
 
-const classes = [
-    {
-      id: 1,
-      title: "Introduction to Mathematics",
-      students: 24,
-      duration: "8 weeks",
-      level: "Beginner",
-      color: "bg-rose-500",
-    },
-    {
-      id: 2,
-      title: "Advanced Physics",
-      students: 18,
-      duration: "12 weeks",
-      level: "Advanced",
-      color: "bg-amber-500",
-    },
-    {
-      id: 3,
-      title: "Chemistry Fundamentals",
-      students: 22,
-      duration: "10 weeks",
-      level: "Intermediate",
-      color: "bg-emerald-500",
-    },
-    {
-      id: 4,
-      title: "Biology & Life Sciences",
-      students: 26,
-      duration: "14 weeks",
-      level: "Beginner",
-      color: "bg-sky-500",
-    },
-    {
-      id: 5,
-      title: "Computer Programming",
-      students: 20,
-      duration: "16 weeks",
-      level: "Intermediate",
-      color: "bg-purple-500",
-    },
-    {
-      id: 6,
-      title: "Art & Design",
-      students: 15,
-      duration: "8 weeks",
-      level: "Beginner",
-      color: "bg-pink-500",
-    },
-  ]
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, delay: id * 0.05 }}
+      whileHover={{ scale: 1.03 }}
+    >
+      <Card
+        className="rounded-xl overflow-hidden p-2 text-center hover:shadow-md transition-all cursor-pointer"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        // onClick={() => navigate(`/subjects/${id, no}`)}
+        onClick={() => navigate(`/subjects/${id}/${no}`)}
 
-
-  function ClassCard({ id, title, students, duration, level, color }) {
-    const [isHovered, setIsHovered] = useState(false)
-    const navigate = useNavigate()
-  
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3, delay: id * 0.05 }}
-        whileHover={{ scale: 1.03 }}
       >
-        <Card
-          className="rounded-xl overflow-hidden p-2 text-center hover:shadow-md transition-all cursor-pointer"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          onClick={() => navigate(`/subjects/${id}`)}
-        >
-          <div className={`h-2 ${color} rounded-t-md`} />
-          <CardContent className="flex flex-col items-center justify-center gap-2 pt-4 px-2 pb-2">
-            <div className={`flex h-10 w-10 items-center justify-center rounded-full ${color} text-white font-bold text-sm`}>
-              {id}
-            </div>
-            <div className="flex items-center gap-1 text-xs text-muted-foreground">
-              <Users className="h-3 w-3" />
-              <span>{students}</span>
-            </div>
-          </CardContent>
-        </Card>
-      </motion.div>
-    )
-  }
-  
+        <div className={`h-2 ${color} rounded-t-md`} />
+        <CardContent className="flex flex-col items-center justify-center gap-2 pt-4 px-2 pb-2">
+          <div className={`flex h-10 w-10 items-center justify-center rounded-full ${color} text-white font-bold text-sm`}>
+            {no}
+          </div>
+          <div className="text-sm font-medium">{title}</div>
+          <div className="flex items-center gap-1 text-xs text-muted-foreground">
+          {/* <Book className="h-4 w-4" /> */}
+          <NotebookText className="h-4 w-4" />
+            <span>{subjects}</span>
+          </div>
+        </CardContent>
+      </Card>
+    </motion.div>
+  )
+}
+
 export default function ClassList() {
+  const { data, isLoading, isError } = useGetAllSyllbusQuery()
+
+  if (isLoading) return <div className="p-4">Loading...</div>
+  if (isError || !data || data.length === 0) return <div className="p-4">No syllabus found.</div>
+
+  const syllabus = data[0] 
+    
+  
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8 flex items-center justify-between">
-        <div>
-          <h2 className="text-3xl font-bold">Available Classes</h2>
-        </div>
+        <h2 className="text-3xl font-bold">Available Classes for {syllabus.title}</h2>
       </div>
 
+      {/* <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"> */}
       <div className="grid grid-cols-4 gap-2">
-  {classes.map((classItem) => (
-    <ClassCard key={classItem.id} {...classItem} />
-  ))}
-</div>
 
-
+        {syllabus.classes.map((classItem) => (
+          <ClassCard
+            key={classItem._id}
+            id={syllabus._id}
+            no={classItem.no}
+            title={`Class ${classItem.no}`}
+            subjects={classItem.subjects.length}
+            color="bg-sky-500"
+          />
+        ))}
+      </div>
     </div>
   )
 }

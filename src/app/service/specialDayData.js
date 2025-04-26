@@ -11,7 +11,7 @@ export const specialDaysApi = createApi({
       query: () => "/specialdays",
     }),
 
-    // Get banner by id
+    // Get  specialDays by id
 
     getASpecialDaysById: builder.query({
       query: (id) => `/specialdays/${id}`,

@@ -9,9 +9,9 @@ export default function AppRoutes() {
   return (
     <Routes>
         <Route  path='/' element= {<Home />} />
-        <Route  path='/subjects/:id' element= {<Subjects />} />
-        <Route  path='/chapters/:id' element= {<ChaptersPage />} />
-        <Route  path='/video/:id' element= {<VideoPage />} />
+        <Route  path='/subjects/:id/:no' element= {<Subjects />} />
+        <Route  path='/subjects/:id/:no/chapters/:chapterId' element= {<ChaptersPage />} />
+        <Route  path='/subjects/:id/:no/chapters/:chapterId/video/:videoId' element= {<VideoPage />} />
     </Routes>
   )
 }
