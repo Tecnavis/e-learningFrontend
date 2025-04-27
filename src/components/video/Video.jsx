@@ -171,7 +171,7 @@ export default function Videos({ video, title, videosId, id, no, subject }) {
                     <div className="flex items-center gap-2 mb-2">
                       <img
                         src={
-                          `http://localhost:3000/images/${chatItem?.userId?.image}` ||
+                          `https://e-learningbackend-0b05.onrender.com/images/${chatItem?.userId?.image}` ||
                           "/default.png"
                         }
                         alt={chatItem?.userId?.name || "User"}

@@ -17,7 +17,7 @@ export function SubjectsCard({ isLoading, subject, id, no }) {
           <div className="relative aspect-video">
             <img
               src={
-                `https://e-learningbackend-0b05.onrender.com/images/${subject.image}` ||
+                `${import.meta.env.VITE_API_URL}/public/images/${subject.image}` ||
                 "/placeholder.svg"
               }
               alt={subject.title}
