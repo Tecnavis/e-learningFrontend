@@ -17,7 +17,7 @@ export function SubjectsCard({ isLoading, subject, id, no }) {
           <div className="relative aspect-video">
             <img
               src={
-                `http://localhost:3000/images/${subject.image}` ||
+                `${import.meta.env.VITE_API_URL}/images/${subject.image}` ||
                 "/placeholder.svg"
               }
               alt={subject.title}

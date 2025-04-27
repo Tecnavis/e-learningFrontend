@@ -16,7 +16,7 @@ export function SpecialDays() {
               <div className="h-24 w-full">
                 <img
                   src={
-                    `http://localhost:3000/images/${day.image}` ||
+                    `${import.meta.env.VITE_API_URL}/images/${day.image}` ||
                     "/placeholder.svg"
                   }
                   alt={day.title}
