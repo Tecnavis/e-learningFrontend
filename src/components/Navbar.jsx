@@ -90,7 +90,7 @@ export function Navbar() {
               {user.image ? (
                 <img
                   class="w-8 h-8 p-1 rounded-full ring-1 ring-gray-300 dark:ring-gray-500"
-                  src={`${import.meta.env.VITE_API_URL}/public/images/${user.image}`}
+                  src={`${import.meta.env.VITE_API_URL}/images/${user.image}`}
                   alt="Bordered avatar"
                 />
               ) : (

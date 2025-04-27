@@ -220,7 +220,7 @@ export default function UserProfileCard() {
                   <div className="flex flex-col items-center justify-center">
                     <div className="relative mb-4">
                       <Avatar className="h-24 w-24">
-                        <AvatarImage src={`${import.meta.env.VITE_API_URL}/public/images/${formData.image}`} />
+                        <AvatarImage src={`${import.meta.env.VITE_API_URL}/images/${formData.image}`} />
                         <AvatarFallback>
                           <User className="h-12 w-12" />
                         </AvatarFallback>
