@@ -4,7 +4,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom';
 
 export default function VideoPage() {
-     const {id, no, chapterId, videoId   } = useParams();
+     const {id, no, chapterId, videoId   } = useParams();     
     
        const { data, isLoading, isError } = useGetASyllbusByIdQuery(id)
       
@@ -17,12 +17,11 @@ export default function VideoPage() {
       const chapter = subject?.[0].subjects.filter((chp) => chp._id == chapterId);
       
       const video = chapter?.[0].chapters.filter((vid) =>  vid._id == videoId);
-    
-      
+          
     
   return (
     <>
-     <Videos  title = {chapter?.[0].chapters[0].title}  video = {video?.[0].document} id = {videoId } />
+     <Videos  title = {chapter?.[0].chapters[0].title}  video = {video?.[0].document} id = {id}  no={no} subject = {chapter?.[0].title} videosId ={videoId} />
     </>
   )
 }

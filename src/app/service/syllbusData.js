@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const syllabusApi = createApi({
   reducerPath: "syllabus",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000" }),
+  baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_URL }),
   endpoints: (builder) => ({
 
     //  Get all syllabus (reading)
@@ -50,6 +50,17 @@ export const syllabusApi = createApi({
         })
     }),
 
+           // add a syllabus rating
+
+           addSyllbusRating: builder.mutation({
+            query: ({id, classNo, subjectTitle, chapterTitle, rating,  userId}) => ({
+                url: `/syllabus/${id}/class/${classNo}/subject/${subjectTitle}/chapter/${chapterTitle}/rating`,
+                method: 'PUT',
+                headers: { "Content-Type": "application/json" },
+                body: { rating,  userId }
+            })
+        }),
+
     // Delete a syllabus
 
     deleteSyllbus: builder.mutation({
@@ -69,6 +80,7 @@ export const {
     useAddNewSyllbusMutation, 
     useUpdateSyllbusMutation,
     useDeleteSyllbusMutation,
-    useAddSyllbusClassMutation
+    useAddSyllbusClassMutation,
+    useAddSyllbusRatingMutation
   } = syllabusApi; 
   

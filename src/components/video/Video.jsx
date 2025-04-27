@@ -1,28 +1,30 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   useAddNewDiscussionMutation,
   useGetAllDocDiscussionQuery,
 } from "@/app/service/discussionData";
 import { formatDistanceToNowStrict, parseISO } from "date-fns";
+import { ArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import StarRatingPage from "@/pages/StarRating";
 
-export default function Videos({ video, title, id }) {
+export default function Videos({ video, title, videosId, id, no, subject }) {
   const [tabValue, setTabValue] = useState("documentation");
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [chat, setChat] = useState("");
-
+  const userData = JSON.parse(localStorage.getItem("user"));
+  const [user, setUser] = useState(userData?.userDetails);
+  const [showStarRating, stShowStarRating] = useState(false);
+  const [Cancel, setCancel] = useState(false);
+  const navigate = useNavigate();
   const {
     data = [],
     isLoading,
     isError,
     refetch,
-  } = useGetAllDocDiscussionQuery(id);
+  } = useGetAllDocDiscussionQuery(videosId);
 
   const [addNewDiscussion, { isLoading: isPosting }] =
     useAddNewDiscussionMutation();
@@ -39,7 +41,7 @@ export default function Videos({ video, title, id }) {
   }, []);
 
   const getYoutubeEmbedLink = (url) => {
-    if (!url) return "";  // Return empty string if URL is invalid
+    if (!url) return ""; // Return empty string if URL is invalid
     try {
       const parsed = new URL(url);
       const videoId = parsed.searchParams.get("v");
@@ -50,7 +52,7 @@ export default function Videos({ video, title, id }) {
   };
 
   const getGoogleDrivePreviewLink = (url) => {
-    if (!url) return "";  // Return empty string if URL is invalid
+    if (!url) return ""; // Return empty string if URL is invalid
     const match = url.match(/\/d\/(.*?)\//);
     return match ? `https://drive.google.com/file/d/${match[1]}/preview` : url;
   };
@@ -61,7 +63,7 @@ export default function Videos({ video, title, id }) {
     const newData = {
       documentId: id,
       chat,
-      userId: "680b499d915b07834f67dd6d", // Replace with actual logged-in user
+      userId: user._id,
     };
 
     try {
@@ -75,9 +77,23 @@ export default function Videos({ video, title, id }) {
     }
   };
 
+  const handlBack = () => {
+    stShowStarRating(true);
+  };
+
+  useEffect(() => {
+    if (Cancel) {
+      stShowStarRating(false);
+      navigate(-1);
+    }
+  }, [Cancel, navigate]);
+
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">{title}</h1>
+    <div className="container mx-auto px-4 py-8 relative ">
+      <h1 className="text-3xl font-bold mb-6">
+        <ArrowLeft onClick={handlBack} className="h-6 w-6 cursor-pointer" />
+        {title}
+      </h1>
 
       {/* Video Section */}
       {video?.video && (
@@ -94,7 +110,11 @@ export default function Videos({ video, title, id }) {
       )}
 
       {/* Tabs Section */}
-      <Tabs value={tabValue} onValueChange={setTabValue} className="w-full mt-8">
+      <Tabs
+        value={tabValue}
+        onValueChange={setTabValue}
+        className="w-full mt-8"
+      >
         <TabsList>
           <TabsTrigger value="documentation">Documentation</TabsTrigger>
           <TabsTrigger value="discussion">Discussion</TabsTrigger>
@@ -131,7 +151,7 @@ export default function Videos({ video, title, id }) {
               <Button
                 onClick={handleClick}
                 disabled={isPosting || chat.trim() === ""}
-                className="self-end"
+                className="self-end cursor-pointer"
               >
                 {isPosting ? "Posting..." : "Post"}
               </Button>
@@ -150,16 +170,24 @@ export default function Videos({ video, title, id }) {
                   <div key={chatItem._id} className="border-b pb-4">
                     <div className="flex items-center gap-2 mb-2">
                       <img
-                        src={chatItem?.userId?.image || "/default.png"}
+                        src={
+                          `http://localhost:3000/images/${chatItem?.userId?.image}` ||
+                          "/default.png"
+                        }
                         alt={chatItem?.userId?.name || "User"}
                         className="w-10 h-10 rounded-full bg-muted"
                       />
                       <div>
-                        <div className="font-semibold">{chatItem?.userId?.name}</div>
+                        <div className="font-semibold">
+                          {chatItem?.userId?.name}
+                        </div>
                         <div className="text-sm text-muted-foreground">
-                          {formatDistanceToNowStrict(parseISO(chatItem.createdAt), {
-                            addSuffix: true,
-                          })}
+                          {formatDistanceToNowStrict(
+                            parseISO(chatItem.createdAt),
+                            {
+                              addSuffix: true,
+                            }
+                          )}
                         </div>
                       </div>
                     </div>
@@ -171,6 +199,17 @@ export default function Videos({ video, title, id }) {
           </div>
         </TabsContent>
       </Tabs>
+      {showStarRating && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+          <StarRatingPage
+            chapterTitle={title}
+            id={id}
+            classNo={no}
+            subjectTitle={subject}
+            setCancel={setCancel}
+          />
+        </div>
+      )}
     </div>
   );
 }

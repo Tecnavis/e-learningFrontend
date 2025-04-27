@@ -19,7 +19,7 @@ export default function ChaptersPage() {
   
   return (
     <>
-    <Chapters  chapters = {chapter?.[0].chapters}   id = {id} no = {no} chapterId = {chapterId} />
+    <Chapters  isLoading = { isLoading }  chapters = {chapter?.[0].chapters}   id = {id} no = {no} chapterId = {chapterId} />
     </>
   )
 }

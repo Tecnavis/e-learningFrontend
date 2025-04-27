@@ -7,7 +7,7 @@ export function Footer() {
 
       <div className="container mt-12 pt-6 border-t">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} EduLearn. All rights reserved.</p>
+          <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} Cognix LEARN. All rights reserved.</p>
           <div className="flex gap-4 text-sm">
             <Link href="#" className="text-muted-foreground hover:text-foreground">
               Privacy Policy

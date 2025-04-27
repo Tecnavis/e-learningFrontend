@@ -4,6 +4,7 @@ import { bannerApi } from "./service/bannderData";
 import { specialDaysApi } from "./service/specialDayData";
 import { syllabusApi } from "./service/syllbusData";
 import { discussionApi } from "./service/discussionData";
+import { userApi } from "./service/userData";
 
 
 export const store = configureStore({
@@ -12,6 +13,7 @@ export const store = configureStore({
     [specialDaysApi.reducerPath]: specialDaysApi.reducer,
     [syllabusApi.reducerPath]: syllabusApi.reducer,
     [discussionApi.reducerPath]: discussionApi.reducer,
+    [userApi.reducerPath]: userApi.reducer,
 
   },
 
@@ -20,6 +22,7 @@ export const store = configureStore({
   .concat(bannerApi.middleware)
   .concat(specialDaysApi.middleware)
   .concat(syllabusApi.middleware)
+  .concat(userApi.middleware)
   .concat(discussionApi.middleware),
 
 });
