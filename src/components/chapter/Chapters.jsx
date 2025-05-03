@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { ArrowLeft, Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -25,13 +25,13 @@ export default function Chapters({ isLoading, chapters, id, no, chapterId }) {
       {/* Subject Header */}
       <div className="flex flex-col md:flex-row gap-8 mb-8">
         <div className="md:w-2/3">
-          <h1 className="text-3xl font-bold mb-2">
+          <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-6 flex items-center gap-2">
             <ArrowLeft
               onClick={() => navigate(-1)}
               className="h-6 w-6 cursor-pointer"
             />
             Chapters
-          </h1>
+          </h2>
         </div>
       </div>
 
@@ -51,16 +51,22 @@ export default function Chapters({ isLoading, chapters, id, no, chapterId }) {
       {/* Tabs */}
       <Tabs defaultValue="lessons" className="mb-8">
         <TabsContent value="lessons" className="pt-5">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Grid layout for lessons, 2 items per row on all screen sizes */}
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 gap-4">
             {!isLoading
               ? filteredLessons.map((lesson) => (
-                  <Card key={lesson._id}>
+                  <Card
+                    key={lesson._id}
+                    className="flex flex-col justify-between"
+                  >
                     <CardContent className="p-6">
-                      <div className="flex justify-between items-start mb-2">
-                        <h3 className="text-lg font-semibold">
+                      <div className="flex flex-col mb-2">
+                        <h3 className="text-lg font-semibold mb-2">
                           {lesson.title}
                         </h3>
-                        <div className="flex items-center gap-1 text-yellow-500">
+
+                        {/* Move Rating Below Heading */}
+                        <div className="flex items-center gap-1 text-yellow-500 mb-2">
                           {Array.from({ length: 5 }).map((_, index) => (
                             <Star
                               key={index}
@@ -76,23 +82,32 @@ export default function Chapters({ isLoading, chapters, id, no, chapterId }) {
                           </span>
                         </div>
                       </div>
-                      <p className="text-muted-foreground mb-4">
+
+                      {/* Decrease font size for description */}
+                      <p className="text-muted-foreground text-sm mb-4">
                         {lesson.description}
                       </p>
+
                       <div className="flex justify-between items-center">
-                        <span className="text-xs px-2 py-1 bg-secondary rounded-full"></span>
-                        <Button
-                          onClick={() =>
-                            navigate(
-                              `/subjects/${id}/${no}/chapters/${chapterId}/video/${lesson._id}`
-                            )
-                          }
-                          variant="outline"
-                          size="sm"
-                          className="cursor-pointer"
-                        >
-                          Watch Lesson
-                        </Button>
+                        {lesson.time && (
+                          <span className="text-xs px-2 py-1 bg-secondary rounded-full">
+                            {lesson.time}
+                          </span>
+                        )}
+                        <div className="w-full flex justify-center sm:justify-end">
+                          <Button
+                            onClick={() =>
+                              navigate(
+                                `/subjects/${id}/${no}/chapters/${chapterId}/video/${lesson._id}`
+                              )
+                            }
+                            variant="outline"
+                            size="sm"
+                            className="cursor-pointer"
+                          >
+                            Watch Lesson
+                          </Button>
+                        </div>
                       </div>
                     </CardContent>
                   </Card>

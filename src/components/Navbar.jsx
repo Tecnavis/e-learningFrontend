@@ -80,7 +80,7 @@ export function Navbar() {
           </div>
 
           <div className="flex items-center gap-2 relative">
-            <ModeToggle />
+            {/* <ModeToggle /> */}
             <Button
               variant="ghost"
               size="icon"

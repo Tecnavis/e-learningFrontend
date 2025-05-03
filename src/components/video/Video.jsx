@@ -20,12 +20,12 @@ export default function Videos({ video, title, videosId, id, no, subject }) {
   const [Cancel, setCancel] = useState(false);
   const navigate = useNavigate();
   const {
-    data = [],
+    data,
     isLoading,
     isError,
     refetch,
   } = useGetAllDocDiscussionQuery(videosId);
-
+  
   const [addNewDiscussion, { isLoading: isPosting }] =
     useAddNewDiscussionMutation();
 
@@ -61,7 +61,7 @@ export default function Videos({ video, title, videosId, id, no, subject }) {
     if (chat.trim() === "") return;
 
     const newData = {
-      documentId: id,
+      documentId:  videosId,
       chat,
       userId: user._id,
     };

@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 
 export default function VideoPage() {
      const {id, no, chapterId, videoId   } = useParams();     
-    
+         
        const { data, isLoading, isError } = useGetASyllbusByIdQuery(id)
       
         if (isLoading) return <div className="p-4">Loading...</div>

@@ -12,12 +12,9 @@ export function SpecialDaysCard() {
 
   const filteredSpecialDays =
     !isLoading && data?.length > 0
-      ? data?.filter((days) => {
-          const matchesSearch = days.title
-            .toLowerCase()
-            .includes(searchQuery.toLowerCase());
-          return matchesSearch;
-        })
+      ? data.filter((days) =>
+          days.title.toLowerCase().includes(searchQuery.toLowerCase())
+        )
       : [];
 
   if (isLoading) return <h1>Loading...</h1>;
@@ -34,7 +31,7 @@ export function SpecialDaysCard() {
         Special Days
       </h2>
 
-      {/* Filters and Search */}
+      {/* Search Input */}
       <div className="flex flex-col sm:flex-row gap-4 mb-6">
         <div className="relative flex-grow">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
@@ -48,15 +45,17 @@ export function SpecialDaysCard() {
         </div>
       </div>
 
+      {/* Grid: Always 3 columns */}
       <div className="grid grid-cols-3 gap-2">
         {!isLoading
           ? filteredSpecialDays.map((day) => (
               <Card
                 key={day._id}
                 className="overflow-hidden rounded-lg cursor-pointer"
-                onClick={() => navigate(`/special-days/${day?._id}`)}
+                onClick={() => navigate(`/special-days/${day._id}`)}
               >
-                <div className="h-24 w-full">
+                {/* Image height reduced only for small screens */}
+                <div className="h-20 sm:h-24 w-full">
                   <img
                     src={
                       `${import.meta.env.VITE_API_URL}/images/${day.image}` ||
@@ -66,8 +65,10 @@ export function SpecialDaysCard() {
                     className="h-full w-full object-cover"
                   />
                 </div>
-                <CardContent className="px-2 py-3 text-center">
-                  <h3 className="text-sm font-semibold">{day.title}</h3>
+                <CardContent className="px-2 py-2 sm:py-3 text-center">
+                  <h3 className="text-xs sm:text-sm font-semibold">
+                    {day.title}
+                  </h3>
                 </CardContent>
               </Card>
             ))
@@ -76,9 +77,9 @@ export function SpecialDaysCard() {
                 key={index}
                 className="overflow-hidden rounded-lg animate-pulse"
               >
-                <div className="h-24 w-full bg-gray-300" />
-                <CardContent className="px-2 py-3 text-center">
-                  <div className="h-4 w-24 bg-gray-300 rounded mx-auto" />
+                <div className="h-20 sm:h-24 w-full bg-gray-300" />
+                <CardContent className="px-2 py-2 sm:py-3 text-center">
+                  <div className="h-3 w-20 bg-gray-300 rounded mx-auto" />
                 </CardContent>
               </Card>
             ))}

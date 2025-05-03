@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Book, NotebookText } from "lucide-react";
+import { NotebookText } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { useGetAllSyllbusQuery } from "@/app/service/syllbusData";
@@ -17,23 +17,21 @@ function ClassCard({ id, no, title, subjects = 0, color = "bg-blue-500" }) {
       whileHover={{ scale: 1.03 }}
     >
       <Card
-        className="rounded-xl overflow-hidden p-2 text-center hover:shadow-md transition-all cursor-pointer"
+        className="rounded-xl overflow-hidden p-1 text-center hover:shadow-md transition-all cursor-pointer"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        // onClick={() => navigate(`/subjects/${id, no}`)}
         onClick={() => navigate(`/subjects/${id}/${no}`)}
       >
-        <div className={`h-2 ${color} rounded-t-md`} />
-        <CardContent className="flex flex-col items-center justify-center gap-2 pt-4 px-2 pb-2">
+        <div className={`h-1.5 ${color} rounded-t-md`} />
+        <CardContent className="flex flex-col items-center justify-center gap-1 pt-2 px-1 pb-1">
           <div
-            className={`flex h-10 w-10 items-center justify-center rounded-full ${color} text-white font-bold text-sm`}
+            className={`flex h-7 w-7 items-center justify-center rounded-full ${color} text-white font-bold text-[10px]`}
           >
             {no}
           </div>
-          <div className="text-sm font-medium">{title}</div>
-          <div className="flex items-center gap-1 text-xs text-muted-foreground">
-            {/* <Book className="h-4 w-4" /> */}
-            <NotebookText className="h-4 w-4" />
+          <div className="text-[10px] font-medium">{title}</div>
+          <div className="flex items-center gap-1 text-[9px] text-muted-foreground">
+            <NotebookText className="h-3 w-3" />
             <span>{subjects}</span>
           </div>
         </CardContent>
@@ -51,12 +49,12 @@ export default function ClassList({ selectedCategories }) {
   const filtetrData =
     selectedCategories == null
       ? data[0]
-      : data.filter((value) => value.title == selectedCategories)[0];
+      : data.find((value) => value.title === selectedCategories);
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-8 flex items-center justify-between">
-        <h2 className="text-3xl font-bold">
+    <div className="container mx-auto px-2 py-6">
+      <div className="mb-4 flex items-center justify-between">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-6">
           Available Classes for {filtetrData.title}
         </h2>
       </div>
@@ -73,16 +71,14 @@ export default function ClassList({ selectedCategories }) {
                 color="bg-sky-500"
               />
             ))
-          : // Show 8 skeleton cards
-            Array.from({ length: 8 }).map((_, index) => (
+          : Array.from({ length: 8 }).map((_, index) => (
               <ClassCard
                 key={index}
                 id=""
                 no=""
                 title=""
                 subjects={0}
-                color="bg-gray-300 animate-pulse" 
-                isLoading={true} 
+                color="bg-gray-300 animate-pulse"
               />
             ))}
       </div>

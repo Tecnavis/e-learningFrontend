@@ -13,7 +13,9 @@ export function FilterBox({ selectedCategories, setSelectedCategories }) {
       <CardContent className="p-6 ">
         <div className="mb-8 flex items-center justify-around">
           <div>
-            <h2 className="text-3xl font-bold">Select Syllabus</h2>
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-6">
+              Select Syllabus
+            </h2>
           </div>
         </div>
 
