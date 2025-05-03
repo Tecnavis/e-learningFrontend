@@ -203,7 +203,7 @@ export default function SignUp() {
               </div>
 
               <Button type="submit" className="group relative w-full bg-purple-600 hover:bg-purple-700">
-                Create Account
+                {isPosting ? "Creating..." : "Create Account"}
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
 

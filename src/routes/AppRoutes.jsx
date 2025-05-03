@@ -1,3 +1,5 @@
+import Pdf from '@/components/pdf/Pdf'
+import { SpecialDaysCard } from '@/components/specialDays/SpecialDays'
 import SignInPage from '@/pages/auth/SignIn'
 import SignUpPage from '@/pages/auth/SignUp'
 import ChaptersPage from '@/pages/Chapters'
@@ -16,6 +18,9 @@ export default function AppRoutes() {
         <Route  path='/subjects/:id/:no' element= {<Subjects />} />
         <Route  path='/subjects/:id/:no/chapters/:chapterId' element= {<ChaptersPage />} />
         <Route  path='/subjects/:id/:no/chapters/:chapterId/video/:videoId' element= {<VideoPage />} />
+        <Route  path='/special-days' element= {<SpecialDaysCard />} />
+        <Route  path='/special-days/:id' element= {<Pdf />} />
+
       </Route>
        <Route  path='/sign-in' element= {<SignInPage />} />
         <Route  path='/sign-up' element= {<SignUpPage />} />

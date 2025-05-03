@@ -1,8 +1,10 @@
 import { useGetAllSpecialDaysQuery } from "@/app/service/specialDayData";
 import { Card, CardContent } from "@/components/ui/card";
+import { useNavigate } from "react-router-dom";
 
 export function SpecialDays() {
   const { data, isError, isLoading } = useGetAllSpecialDaysQuery();
+  const navigate = useNavigate();
 
   if (isLoading) return <h1>Loading...</h1>;
   if (isError || !Array.isArray(data))
@@ -11,8 +13,8 @@ export function SpecialDays() {
   return (
     <div className="grid grid-cols-3 gap-2">
       {!isLoading
-        ? data.map((day) => (
-            <Card key={day._id} className="overflow-hidden rounded-lg">
+        ? data.slice(0, 8).map((day) => (
+            <Card key={day._id} className="overflow-hidden rounded-lg cursor-pointer" onClick={() => navigate(`/special-days/${day?._id}`)}>
               <div className="h-24 w-full">
                 <img
                   src={

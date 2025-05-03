@@ -176,7 +176,7 @@ export default function SignIn() {
               </div>
 
               <Button type="submit" className="group relative w-full bg-blue-600 hover:bg-blue-700 cursor-pointer">
-                Sign In
+               {isPosting  ? "Sign in ...." : "Sign in" }
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
 
