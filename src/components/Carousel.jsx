@@ -41,7 +41,7 @@ export function Carousel() {
             <img
               src={`${import.meta.env.VITE_API_URL}/images/${slide}`}
               alt={"carousel image"}
-              className="w-full h-[300px] md:h-[400px] lg:h-[500px] object-cover"
+              className="w-full h-[200px] md:h-[300px] lg:h-[500px] object-cover"
             />
           </div>
         ))}

@@ -1,39 +1,38 @@
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { ArrowRight, Mail, Lock } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import {  useNavigate } from "react-router-dom"
-import { useLoginUserMutation } from "@/app/service/userData"
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { ArrowRight, Mail, Lock } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useNavigate } from "react-router-dom";
+import { useLoginUserMutation } from "@/app/service/userData";
+import logo from "../../../public/2.png";
+import auth_image from "../../../public/auth.jpeg"
 
 export default function SignIn() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-   const [  loginUser, { isLoading: isPosting }] =
-   useLoginUserMutation();
+  const [loginUser, { isLoading: isPosting }] = useLoginUserMutation();
 
-  const navigate = useNavigate() 
-
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    if (email.trim() === "" &&  password.trim() === "") return;
+    if (email.trim() === "" && password.trim() === "") return;
 
-
-     const  logData = {
-        email,
-        password
-     } 
+    const logData = {
+      email,
+      password,
+    };
     try {
-      const response = await  loginUser(logData);      
-      if (response?.data?.status == 200 ) {
+      const response = await loginUser(logData);
+      if (response?.data?.status == 200) {
         localStorage.setItem("user", JSON.stringify(response?.data));
         setEmail("");
         setPassword("");
-        navigate("/")
+        navigate("/");
         window.location.reload();
       }
     } catch (error) {
@@ -57,8 +56,14 @@ export default function SignIn() {
               opacity: 0,
             }}
             animate={{
-              x: [Math.random() * window.innerWidth, Math.random() * window.innerWidth],
-              y: [Math.random() * window.innerHeight, Math.random() * window.innerHeight],
+              x: [
+                Math.random() * window.innerWidth,
+                Math.random() * window.innerWidth,
+              ],
+              y: [
+                Math.random() * window.innerHeight,
+                Math.random() * window.innerHeight,
+              ],
               opacity: [0, 0.5, 0],
             }}
             transition={{
@@ -80,7 +85,7 @@ export default function SignIn() {
         >
           <div className="absolute inset-0 bg-black/20" />
           <img
-            src="https://cdn.pixabay.com/photo/2018/08/04/11/30/draw-3583548_1280.png"
+            src={auth_image}
             alt="Company Image"
             className="object-cover h-full w-full"
           />
@@ -118,8 +123,21 @@ export default function SignIn() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5 }}
             >
-              <h1 className="text-4xl font-bold tracking-tight text-white">Sign In</h1>
-              <p className="mt-2 text-gray-400">Enter your credentials to access your account</p>
+              {/* Logo */}
+              <div className="mb-4 flex justify-center">
+                <img
+                  src={logo}
+                  alt="App Logo"
+                  className="h-16 w-auto sm:h-20"
+                />
+              </div>
+
+              <h1 className="text-4xl font-bold tracking-tight text-white">
+                Sign In
+              </h1>
+              <p className="mt-2 text-gray-400">
+                Enter your credentials to access your account
+              </p>
             </motion.div>
 
             <motion.form
@@ -175,13 +193,19 @@ export default function SignIn() {
                 </div>
               </div>
 
-              <Button type="submit" className="group relative w-full bg-blue-600 hover:bg-blue-700 cursor-pointer">
-               {isPosting  ? "Sign in ...." : "Sign in" }
+              <Button
+                type="submit"
+                className="group relative w-full bg-blue-600 hover:bg-blue-700 cursor-pointer"
+              >
+                {isPosting ? "Sign in ...." : "Sign in"}
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
 
-              <div type="submit" className="group relative w-full text-center text-sm text-gray-400 cursor-pointer">
-              Don&apos;t have an account?{" "}
+              <div
+                type="submit"
+                className="group relative w-full text-center text-sm text-gray-400 cursor-pointer"
+              >
+                Don&apos;t have an account?{" "}
                 <span
                   onClick={() => navigate("/sign-up")}
                   className="text-blue-400 hover:text-blue-300 cursor-pointer"
@@ -189,11 +213,10 @@ export default function SignIn() {
                   Sign up
                 </span>
               </div>
-
             </motion.form>
           </div>
         </motion.div>
       </div>
     </div>
-  )
+  );
 }

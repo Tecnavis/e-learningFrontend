@@ -141,7 +141,7 @@ export default function UserProfileCard() {
               className="h-32 w-32 overflow-hidden rounded-full border-4 border-white bg-white shadow-lg"
             >
               <img
-                src={`http://localhost:3000/images/${user?.image}` || "/placeholder.svg"}
+                src={`${import.meta.env.VITE_API_URL}/images/${user?.image}` || "/placeholder.svg"}
                 alt={user?.name}
                 width={128}
                 height={128}

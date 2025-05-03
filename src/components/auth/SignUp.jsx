@@ -1,19 +1,18 @@
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { ArrowRight, User, Mail, Lock, MapPin, Briefcase } from "lucide-react"
-
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import {  NavLink, useNavigate } from "react-router-dom"
-import { useAddNewUserMutation } from "@/app/service/userData"
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { ArrowRight, User, Mail, Lock, MapPin, Briefcase } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useNavigate } from "react-router-dom";
+import { useAddNewUserMutation } from "@/app/service/userData";
+import logo from "../../../public/2.png";
+import auth_image from "../../../public/auth.jpeg";
 
 export default function SignUp() {
+  const [addNewUser, { isLoading: isPosting }] = useAddNewUserMutation();
 
-      const [ addNewUser, { isLoading: isPosting }] =
-      useAddNewUserMutation();
-
-      const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -21,30 +20,29 @@ export default function SignUp() {
     password: "",
     standard: "",
     district: "",
-  })
+  });
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-
+    e.preventDefault();
 
     try {
-      const response = await  addNewUser(formData);
-      
+      const response = await addNewUser(formData);
+
       if (response?.data?.status == 201) {
         setFormData({
-            name: "",
-            email: "",
-            password: "",
-            standard: "",
-            district: "",
-          })
-        
-        navigate("/sign-in")
+          name: "",
+          email: "",
+          password: "",
+          standard: "",
+          district: "",
+        });
+
+        navigate("/sign-in");
       }
     } catch (error) {
       console.error("Failed to add discussion:", error);
@@ -67,8 +65,14 @@ export default function SignUp() {
               opacity: 0,
             }}
             animate={{
-              x: [Math.random() * window.innerWidth, Math.random() * window.innerWidth],
-              y: [Math.random() * window.innerHeight, Math.random() * window.innerHeight],
+              x: [
+                Math.random() * window.innerWidth,
+                Math.random() * window.innerWidth,
+              ],
+              y: [
+                Math.random() * window.innerHeight,
+                Math.random() * window.innerHeight,
+              ],
               opacity: [0, 0.5, 0],
             }}
             transition={{
@@ -95,8 +99,21 @@ export default function SignUp() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5 }}
             >
-              <h1 className="text-4xl font-bold tracking-tight text-white">Create Account</h1>
-              <p className="mt-2 text-gray-400">Join us today and start your journey</p>
+              {/* Logo */}
+              <div className="mb-4 flex justify-center">
+                <img
+                  src={logo}
+                  alt="App Logo"
+                  className="h-16 w-auto sm:h-20"
+                />
+              </div>
+
+              <h1 className="text-4xl font-bold tracking-tight text-white">
+                Create Account
+              </h1>
+              <p className="mt-2 text-gray-400">
+                Join us today and start your learning journey
+              </p>
             </motion.div>
 
             <motion.form
@@ -202,35 +219,42 @@ export default function SignUp() {
                 </div>
               </div>
 
-              <Button type="submit" className="group relative w-full bg-purple-600 hover:bg-purple-700">
+              <Button
+                type="submit"
+                className="group relative w-full bg-purple-600 hover:bg-purple-700"
+              >
                 {isPosting ? "Creating..." : "Create Account"}
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
 
-              <div type="submit" className="group text-sm text-center relative w-full  text-gray-400">
-              Already have an account?{" "}
-                <span onClick={() => navigate("/sign-in")}  className="text-purple-400 hover:text-purple-300 cursor-pointer">
+              <div
+                type="submit"
+                className="group text-sm text-center relative w-full  text-gray-400"
+              >
+                Already have an account?{" "}
+                <span
+                  onClick={() => navigate("/sign-in")}
+                  className="text-purple-400 hover:text-purple-300 cursor-pointer"
+                >
                   Sign in
                 </span>
               </div>
-
             </motion.form>
           </div>
         </motion.div>
 
         {/* Company image section */}
         <motion.div
-          className="relative hidden w-full bg-purple-600 lg:block lg:w-1/2"
-          initial={{ x: 100, opacity: 0 }}
+          className="relative hidden w-full bg-blue-600 lg:block lg:w-1/2"
+          initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.6 }}
         >
           <div className="absolute inset-0 bg-black/20" />
           <img
-            src="https://cdn.pixabay.com/photo/2018/08/04/11/30/draw-3583548_1280.png"
+            src={auth_image}
             alt="Company Image"
-            className="object-cover"
-            
+            className="object-cover h-full w-full"
           />
           <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
             <motion.h2
@@ -253,5 +277,5 @@ export default function SignUp() {
         </motion.div>
       </div>
     </div>
-  )
+  );
 }

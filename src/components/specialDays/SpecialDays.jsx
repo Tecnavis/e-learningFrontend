@@ -46,7 +46,7 @@ export function SpecialDaysCard() {
       </div>
 
       {/* Grid: Always 3 columns */}
-      <div className="grid grid-cols-3 gap-2">
+      {/* <div className="grid grid-cols-3 gap-2">
         {!isLoading
           ? filteredSpecialDays.map((day) => (
               <Card
@@ -54,7 +54,7 @@ export function SpecialDaysCard() {
                 className="overflow-hidden rounded-lg cursor-pointer"
                 onClick={() => navigate(`/special-days/${day._id}`)}
               >
-                {/* Image height reduced only for small screens */}
+               
                 <div className="h-20 sm:h-24 w-full">
                   <img
                     src={
@@ -81,6 +81,33 @@ export function SpecialDaysCard() {
                 <CardContent className="px-2 py-2 sm:py-3 text-center">
                   <div className="h-3 w-20 bg-gray-300 rounded mx-auto" />
                 </CardContent>
+              </Card>
+            ))}
+      </div> */}
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+        {!isLoading
+          ? data.slice(0, 8).map((day) => (
+              <Card
+                key={day._id}
+                className="overflow-hidden rounded-lg cursor-pointer p-0"
+                onClick={() => navigate(`/special-days/${day?._id}`)}
+              >
+                <div className="h-24 sm:h-28 md:h-32 w-full">
+                  <img
+                    src={`${import.meta.env.VITE_API_URL}/images/${day.image}`}
+                    alt={day.title}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              </Card>
+            ))
+          : Array.from({ length: 8 }).map((_, index) => (
+              <Card
+                key={index}
+                className="overflow-hidden rounded-lg animate-pulse p-0"
+              >
+                <div className="h-24 sm:h-28 md:h-32 w-full bg-gray-300" />
               </Card>
             ))}
       </div>
