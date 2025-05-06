@@ -23,24 +23,27 @@ export function Navbar() {
                   <span className="sr-only">Toggle menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left">
-                <nav className="grid gap-6 text-lg font-medium">
+              <SheetContent
+                side="left"
+                className="p-4 animate-in slide-in-from-left duration-300 ease-out"
+              >
+                <nav className="grid gap-4 text-base font-medium">
                   <Link
-                    href="/"
-                    className="flex items-center gap-2 text-lg font-semibold"
+                    to="/"
+                    className="flex items-center gap-2 text-base font-semibold"
                   >
-                    <BookOpen className="h-6 w-6" />
+                    <BookOpen className="h-5 w-5" />
                     <span>
                       Cognix <small>LEARN</small>
                     </span>
                   </Link>
-                  <NavLink to={"/"} className="hover:text-primary">
+                  <NavLink to="/" className="hover:text-primary">
                     Home
                   </NavLink>
-                  <Link href="#" className="hover:text-primary">
+                  <Link to="#" className="hover:text-primary">
                     About Us
                   </Link>
-                  <Link href="#" className="hover:text-primary">
+                  <Link to="#" className="hover:text-primary">
                     Contact
                   </Link>
                 </nav>
