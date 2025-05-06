@@ -255,10 +255,13 @@ export default function Videos({ video, title, videosId, id, no, subject }) {
   useEffect(() => {
     if (window.adsbygoogle && adRef.current) {
       try {
-        if (!adRef.current.getAttribute("data-ad-loaded")) {
-          window.adsbygoogle.push({});
-          adRef.current.setAttribute("data-ad-loaded", "true");
-        }
+        // if (!adRef.current.getAttribute("data-ad-loaded")) {
+        //   window.adsbygoogle.push({});
+        //   adRef.current.setAttribute("data-ad-loaded", "true");
+        // }
+
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+
       } catch (e) {
         console.error("AdSense injection failed", e);
       }
@@ -314,16 +317,13 @@ export default function Videos({ video, title, videosId, id, no, subject }) {
       </h1>
 
       {/* AdSense Ad */}
-      <div className="my-6">
+      <div className="my-6 w-[100%] overflow-hidden ">
         <ins
           className="adsbygoogle bg-black"
-          style={{ display: "block" }}
+          style={{ display: "block", width: "100%", height: "" }}
           data-ad-client="ca-pub-9589063125380558"
           data-ad-slot="3684043265"
-          data-ad-format="auto"
-          data-full-width-responsive="true"
           ref={adRef}
-          data-adtest="on"
         />
       </div>
 
