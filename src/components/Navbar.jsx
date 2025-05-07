@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { BookOpen, Menu, Search, User } from "lucide-react";
+import { BookOpen, Menu,  User } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 import ModeToggle from "./ModeToggle";
 import { useState } from "react";

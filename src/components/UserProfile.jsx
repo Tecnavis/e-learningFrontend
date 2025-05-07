@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import { motion } from "framer-motion";
 import {
   Edit,
@@ -21,7 +21,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useUpdateUserMutation } from "@/app/service/userData";
+import { useLogoutUserMutation, useUpdateUserMutation } from "@/app/service/userData";
 
 export default function UserProfileCard() {
   const userData = JSON.parse(localStorage.getItem("user"));
@@ -31,6 +31,8 @@ export default function UserProfileCard() {
   const [image, setImage] = useState(null);
 
   const [ updateUser, { isLoading: isPosting }] = useUpdateUserMutation();
+  const [ logoutUser, { isLoading: isLogout }] =  useLogoutUserMutation();
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -66,9 +68,7 @@ export default function UserProfileCard() {
         id: userData?.userDetails?._id,
         updateUser: formDataToSend,
       });
-  
-      console.log("Full response:", response.data); // <-- check what comes
-  
+    
       if (response?.data?.status === 200) {
         const oldData = JSON.parse(localStorage.getItem("user"));
   
@@ -120,9 +120,21 @@ export default function UserProfileCard() {
 //     }
 //   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    window.location.reload();
+
+const handleLogout = async (e) => {
+  
+  e.preventDefault();
+
+  const userId = JSON.parse(localStorage.getItem("user"));
+    try {
+      const { status } = await logoutUser({id: userId?.userDetails._id}).unwrap();
+      if (status === 200) {
+        localStorage.removeItem("user");
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error("Failed to logout:", error);
+    }
   };
 
   return (

@@ -11,6 +11,7 @@ export const userApi = createApi({
       query: () => "/users",
     }),
 
+
     // Post user login
 
     loginUser: builder.mutation({
@@ -19,6 +20,15 @@ export const userApi = createApi({
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: logUser,
+        }),
+      }),
+
+      // put user logout
+
+      logoutUser: builder.mutation({
+        query: ({id}) => ({
+          url: `/users/logout/${id}`,
+          method: "PUT",
         }),
       }),
 
@@ -74,5 +84,6 @@ export const {
     useAddNewUserMutation, 
     useUpdateUserMutation,
     useDeleteUserMutation,
+    useLogoutUserMutation,
   } =  userApi; 
   
