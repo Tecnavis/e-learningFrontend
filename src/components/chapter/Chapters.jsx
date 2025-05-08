@@ -23,7 +23,7 @@ export default function Chapters({ isLoading, chapters, id, no, chapterId }) {
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Subject Header */}
-      <div className="flex flex-col md:flex-row gap-8 mb-8">
+      <div className="flex flex-col sm:flex-row gap-4">
         <div className="md:w-2/3">
           <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-6 flex items-center gap-2">
             <ArrowLeft
@@ -38,7 +38,7 @@ export default function Chapters({ isLoading, chapters, id, no, chapterId }) {
       {/* Filters and Search */}
       <div className="flex flex-col sm:flex-row gap-4 mb-6">
         <div className="relative flex-grow">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
           <Input
             placeholder="Search chapters..."
             className="pl-10"
@@ -49,8 +49,8 @@ export default function Chapters({ isLoading, chapters, id, no, chapterId }) {
       </div>
 
       {/* Tabs */}
-      <Tabs defaultValue="lessons" className="mb-8">
-        <TabsContent value="lessons" className="pt-5">
+      <Tabs defaultValue="lessons" className="">
+        <TabsContent value="lessons" className="">
           {/* Grid layout for lessons, 2 items per row on all screen sizes */}
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 gap-4">
             {!isLoading
