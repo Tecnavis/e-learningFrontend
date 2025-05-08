@@ -4,6 +4,7 @@ import AboutPage from '@/pages/About'
 import SignInPage from '@/pages/auth/SignIn'
 import SignUpPage from '@/pages/auth/SignUp'
 import ChaptersPage from '@/pages/Chapters'
+import ContactPage from '@/pages/Contact'
 import Home from '@/pages/Home'
 import Subjects from '@/pages/Subjects'
 import VideoPage from '@/pages/Video'
@@ -22,7 +23,7 @@ export default function AppRoutes() {
         <Route  path='/special-days' element= {<SpecialDaysCard />} />
         <Route  path='/special-days/:id' element= {<Pdf />} />
         <Route  path='/about' element= {<AboutPage />} />
-
+        <Route  path='/contact' element= {<ContactPage />} />
 
       </Route>
        <Route  path='/sign-in' element= {<SignInPage />} />

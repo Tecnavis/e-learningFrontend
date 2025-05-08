@@ -43,7 +43,7 @@ export function Navbar() {
                   <Link to="/about" className="hover:text-primary">
                     About Us
                   </Link>
-                  <Link to="#" className="hover:text-primary">
+                  <Link to="/contact" className="hover:text-primary">
                     Contact
                   </Link>
                 </nav>
@@ -74,7 +74,7 @@ export function Navbar() {
                 About Us
               </Link>
               <Link
-                href="#"
+                to="/contact"
                 className="font-medium transition-colors hover:text-primary"
               >
                 Contact
