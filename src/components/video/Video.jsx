@@ -109,7 +109,7 @@ export default function Videos({ video, title, videosId, id, no, subject }) {
       </h2>
 
       {/* AdSense Ad */}
-      <div className="my-6 w-[100%] overflow-hidden ">
+      <div className="my-6 w-[100%] overflow-hidden">
         <ins
           className="adsbygoogle"
           style={{ display: "block" }}
