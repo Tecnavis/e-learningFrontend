@@ -40,7 +40,7 @@ export function Navbar() {
                   <NavLink to="/" className="hover:text-primary">
                     Home
                   </NavLink>
-                  <Link to="#" className="hover:text-primary">
+                  <Link to="/about" className="hover:text-primary">
                     About Us
                   </Link>
                   <Link to="#" className="hover:text-primary">
@@ -68,7 +68,7 @@ export function Navbar() {
                 Home
               </NavLink>
               <Link
-                href="#"
+                to={'/about'}
                 className="font-medium transition-colors hover:text-primary"
               >
                 About Us
