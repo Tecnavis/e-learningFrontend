@@ -22,7 +22,7 @@ export default function Home() {
       <section className="container mx-auto px-4 py-4">
         <div className="flex justify-between">
           <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-6">
-            Special Days
+          Discover
           </h2>
           <div>
             <h4

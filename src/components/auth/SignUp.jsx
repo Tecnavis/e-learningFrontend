@@ -191,7 +191,7 @@ export default function SignUp() {
                       id="phone"
                       name="phone"
                       type="phone"
-                      placeholder="91+0000000"
+                      placeholder="+91 000000"
                       className="border-gray-700 bg-gray-800 pl-10 text-white"
                       value={formData.phone}
                       onChange={handleChange}
@@ -203,14 +203,14 @@ export default function SignUp() {
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div className="space-y-2">
                     <Label htmlFor="standard" className="text-white">
-                      Standard
+                      Class
                     </Label>
                     <div className="relative">
                       <Briefcase className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                       <Input
                         id="standard"
                         name="standard"
-                        placeholder="Your standard"
+                        placeholder="Your class"
                         className="border-gray-700 bg-gray-800 pl-10 text-white"
                         value={formData.standard}
                         onChange={handleChange}

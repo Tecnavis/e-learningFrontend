@@ -28,7 +28,7 @@ export function SpecialDaysCard() {
           onClick={() => navigate(-1)}
           className="h-6 w-6 cursor-pointer"
         />
-        Special Days
+         Discover
       </h2>
 
       {/* Search Input */}
@@ -87,7 +87,7 @@ export function SpecialDaysCard() {
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
         {!isLoading
-          ? data.slice(0, 8).map((day) => (
+          ? filteredSpecialDays.slice(0, 8).map((day) => (
               <Card
                 key={day._id}
                 className="overflow-hidden rounded-lg cursor-pointer p-0"
