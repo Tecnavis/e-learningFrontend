@@ -80,14 +80,14 @@ export default function Contact() {
             conversation
           </span>
         </h1>
-        <p className="mt-6 animate-fade-in-up animation-delay-100 max-w-2xl text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+        {/* <p className="mt-6 animate-fade-in-up animation-delay-100 max-w-2xl text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
           Have a question, project idea, or want to work with us? We'd love to
           hear from you. Reach out using any of the methods below.
-        </p>
+        </p> */}
       </div>
 
       {/* Contact Info Cards */}
-      <div className="mb-20 grid animate-fade-in-up animation-delay-200 gap-4 md:grid-cols-3 md:gap-8">
+      <div className="mb-20 flex animate-fade-in-up animation-delay-200 justify-center">
         <Card className="group overflow-hidden transition-all duration-300 hover:shadow-lg hover:bg-primary/5">
           <CardContent className="flex flex-col items-center justify-center p-6 text-center">
             <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 transition-all duration-300 group-hover:scale-110 group-hover:bg-primary/20">
@@ -101,11 +101,13 @@ export default function Contact() {
               href="mailto:hello@company.com"
               className="mt-4 inline-flex items-center text-primary hover:underline"
             >
-              hello@company.com
+              cognixlearn@gmail.com
             </a>
           </CardContent>
         </Card>
-        <Card className="group overflow-hidden transition-all duration-300 hover:shadow-lg hover:bg-primary/5">
+      </div>
+
+      {/* <Card className="group overflow-hidden transition-all duration-300 hover:shadow-lg hover:bg-primary/5">
           <CardContent className="flex flex-col items-center justify-center p-6 text-center">
             <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 transition-all duration-300 group-hover:scale-110 group-hover:bg-primary/20">
               <Phone className="h-6 w-6 text-primary" />
@@ -137,11 +139,10 @@ export default function Contact() {
               San Francisco, CA 94103
             </address>
           </CardContent>
-        </Card>
-      </div>
+        </Card> */}
 
       {/* Contact Form and Map Section */}
-      <div className="mb-20 grid gap-8 lg:grid-cols-2">
+      {/* <div className="mb-20 grid gap-8 lg:grid-cols-2">
         <div className="animate-fade-in-left animation-delay-300">
           <div className="mb-8">
             <h2 className="text-3xl font-bold tracking-tight">
@@ -308,10 +309,10 @@ export default function Contact() {
             </TabsContent>
           </Tabs>
         </div>
-      </div>
+      </div> */}
 
       {/* FAQ Section */}
-      <div className="mb-20">
+      {/* <div className="mb-20">
         <div className="mb-10 flex flex-col items-center text-center">
           <h2 className="animate-fade-in-up animation-delay-500 text-3xl font-bold tracking-tight sm:text-4xl">
             Frequently Asked Questions
@@ -371,10 +372,10 @@ export default function Contact() {
             </Card>
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* Social Media Section */}
-      <div className="mb-20">
+      {/* <div className="mb-20">
         <div className="mb-10 flex flex-col items-center text-center">
           <h2 className="animate-fade-in-up animation-delay-1200 text-3xl font-bold tracking-tight sm:text-4xl">
             Connect With Us
@@ -425,10 +426,10 @@ export default function Contact() {
             </Link>
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* Newsletter Section */}
-      <div className="animate-fade-in-up animation-delay-1400 rounded-2xl bg-gradient-to-r from-primary/10 via-primary/5 to-background p-8 md:p-12">
+      {/* <div className="animate-fade-in-up animation-delay-1400 rounded-2xl bg-gradient-to-r from-primary/10 via-primary/5 to-background p-8 md:p-12">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             Stay updated with our newsletter
@@ -460,7 +461,7 @@ export default function Contact() {
             .
           </p>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
