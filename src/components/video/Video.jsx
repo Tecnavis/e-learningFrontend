@@ -6,65 +6,71 @@ import {
   useGetAllDocDiscussionQuery,
 } from "@/app/service/discussionData";
 import { formatDistanceToNowStrict, parseISO } from "date-fns";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Maximize2, Minimize2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import StarRatingPage from "@/pages/StarRating";
 
 export default function Videos({ video, title, videosId, id, no, subject }) {
   const [tabValue, setTabValue] = useState("documentation");
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [fullscreenPdfIndex, setFullscreenPdfIndex] = useState(null);
   const [chat, setChat] = useState("");
-  const userData = JSON.parse(localStorage.getItem("user"));
-  const [user, setUser] = useState(userData?.userDetails);
+  const [showAd, setShowAd] = useState(true);
+  const [user] = useState(JSON.parse(localStorage.getItem("user"))?.userDetails);
   const [showStarRating, stShowStarRating] = useState(false);
   const [Cancel, setCancel] = useState(false);
   const navigate = useNavigate();
   const adRef = useRef(null);
-  const { data, isLoading, isError, refetch } =
-    useGetAllDocDiscussionQuery(videosId);
+  const containerRef = useRef(null);
+  const { data, isLoading, isError, refetch } = useGetAllDocDiscussionQuery(videosId);
+  const [addNewDiscussion, { isLoading: isPosting }] = useAddNewDiscussionMutation();
 
-  const [addNewDiscussion, { isLoading: isPosting }] =
-    useAddNewDiscussionMutation();
+  useEffect(() => {
+    const timer = setTimeout(() => setShowAd(false), 8000);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const handleFullscreenChange = () => {
       setIsFullscreen(!!document.fullscreenElement);
+      if (!document.fullscreenElement) setFullscreenPdfIndex(null);
     };
     document.addEventListener("fullscreenchange", handleFullscreenChange);
-
-    return () => {
-      document.removeEventListener("fullscreenchange", handleFullscreenChange);
-    };
+    return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
   }, []);
 
+  useEffect(() => {
+    if (window.adsbygoogle && adRef.current) {
+      const alreadyLoaded = adRef.current.getAttribute("data-ad-status") === "done";
+      if (!alreadyLoaded) {
+        try {
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+          adRef.current.setAttribute("data-ad-status", "done");
+        } catch (e) {
+          console.error("AdSense injection failed", e);
+        }
+      }
+    }
+  }, [showAd]);
+
   const getYoutubeEmbedLink = (url) => {
-    if (!url) return ""; // Return empty string if URL is invalid
     try {
-      const parsed = new URL(url);
-      const videoId = parsed.searchParams.get("v");
+      const videoId = new URL(url).searchParams.get("v");
       return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
-    } catch (err) {
-      return ""; // Return empty string in case of an error
+    } catch {
+      return "";
     }
   };
 
   const getGoogleDrivePreviewLink = (url) => {
-    if (!url) return ""; // Return empty string if URL is invalid
-    const match = url.match(/\/d\/(.*?)\//);
+    const match = url?.match(/\/d\/(.*?)\//);
     return match ? `https://drive.google.com/file/d/${match[1]}/preview` : url;
   };
 
   const handleClick = async () => {
     if (chat.trim() === "") return;
-
-    const newData = {
-      documentId: videosId,
-      chat,
-      userId: user._id,
-    };
-
     try {
-      const response = await addNewDiscussion(newData);
+      const response = await addNewDiscussion({ documentId: videosId, chat, userId: user._id });
       if (response?.data?.status === 201) {
         setChat("");
         refetch();
@@ -74,8 +80,15 @@ export default function Videos({ video, title, videosId, id, no, subject }) {
     }
   };
 
-  const handlBack = () => {
-    stShowStarRating(true);
+  const handleBack = () => stShowStarRating(true);
+
+  const toggleFullscreen = async (index) => {
+    if (fullscreenPdfIndex === index) {
+      document.exitFullscreen();
+    } else {
+      setFullscreenPdfIndex(index);
+      await containerRef.current?.requestFullscreen();
+    }
   };
 
   useEffect(() => {
@@ -85,43 +98,29 @@ export default function Videos({ video, title, videosId, id, no, subject }) {
     }
   }, [Cancel, navigate]);
 
-  // Handle AdSense only once
-  useEffect(() => {
-    if (window.adsbygoogle && adRef.current) {
-      const adAlreadyLoaded =
-        adRef.current.getAttribute("data-ad-status") === "done";
-      if (!adAlreadyLoaded) {
-        try {
-          (window.adsbygoogle = window.adsbygoogle || []).push({});
-          adRef.current.setAttribute("data-ad-status", "done");
-        } catch (e) {
-          console.error("AdSense injection failed", e);
-        }
-      }
-    }
-  }, []);
-
-  return (
-    <div className="container mx-auto px-4 py-8 relative ">
-      <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-6 flex items-center gap-2">
-        <ArrowLeft onClick={handlBack} className="h-6 w-6 cursor-pointer" />
-        {title}
-      </h2>
-
-      {/* AdSense Ad */}
-      <div className="my-6 w-[100%] overflow-hidden">
+  if (showAd) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
         <ins
           className="adsbygoogle"
-          style={{ display: "block" }}
-          data-ad-client="ca-pub-9589063125380558"
-          data-ad-slot="3684043265"
+          style={{ display: "block", width: "100%", height: "100%" }}
+          data-ad-client="ca-pub-6820691540388182"
+          data-ad-slot="1420763964"
           data-ad-format="auto"
           data-full-width-responsive="true"
           ref={adRef}
         />
       </div>
+    );
+  }
 
-      {/* Video Section */}
+  return (
+    <div className="container mx-auto px-4 py-8 relative">
+      <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-6 flex items-center gap-2">
+        <ArrowLeft onClick={handleBack} className="h-6 w-6 cursor-pointer" />
+        {title}
+      </h2>
+
       {video?.video && (
         <div className="relative mb-8 bg-black rounded-lg overflow-hidden">
           <iframe
@@ -135,28 +134,11 @@ export default function Videos({ video, title, videosId, id, no, subject }) {
         </div>
       )}
 
-      {/* Tabs Section */}
-      <Tabs
-        value={tabValue}
-        onValueChange={setTabValue}
-        className="w-full mt-8"
-      >
+      <Tabs value={tabValue} onValueChange={setTabValue} className="w-full mt-8">
         <TabsList>
           <TabsTrigger value="documentation">Documentation</TabsTrigger>
           <TabsTrigger value="discussion">Discussion</TabsTrigger>
         </TabsList>
-
-        {/* Documentation View */}
-        {/* <TabsContent value="documentation" className="mt-4">
-          <div className="w-full aspect-[4/3] rounded-xl overflow-hidden shadow-md">
-            <iframe
-              src={getGoogleDrivePreviewLink(video?.pdf)}
-              className="w-full h-full"
-              frameBorder="0"
-              allow="autoplay"
-            />
-          </div>
-        </TabsContent> */}
 
         <TabsContent value="documentation" className="mt-4">
           {Array.isArray(video?.pdf) && video.pdf.length > 0 ? (
@@ -171,13 +153,19 @@ export default function Videos({ video, title, videosId, id, no, subject }) {
 
               {video.pdf.map((pdfUrl, index) => (
                 <TabsContent key={index} value={index.toString()}>
-                  <div className="w-full aspect-[4/3] rounded-xl overflow-hidden shadow-md">
+                  <div className="relative w-full h-[85vh] rounded-xl overflow-hidden shadow-md" ref={containerRef}>
                     <iframe
                       src={getGoogleDrivePreviewLink(pdfUrl)}
                       className="w-full h-full"
                       frameBorder="0"
                       allow="autoplay"
                     />
+                    <button
+                      onClick={() => toggleFullscreen(index)}
+                      className="absolute top-2 right-2 bg-white p-1 rounded-md shadow-md hover:bg-gray-100"
+                    >
+                      {fullscreenPdfIndex === index ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
+                    </button>
                   </div>
                 </TabsContent>
               ))}
@@ -187,14 +175,11 @@ export default function Videos({ video, title, videosId, id, no, subject }) {
           )}
         </TabsContent>
 
-        {/* Discussion View */}
         <TabsContent value="discussion" className="mt-4">
           <div className="space-y-6">
             <h3 className="text-lg font-semibold mb-4">
               Discussion ({data?.length || 0} comments)
             </h3>
-
-            {/* Add Comment */}
             <div className="flex gap-4 mb-6">
               <textarea
                 className="flex-grow p-4 rounded-md border bg-background"
@@ -206,13 +191,12 @@ export default function Videos({ video, title, videosId, id, no, subject }) {
               <Button
                 onClick={handleClick}
                 disabled={isPosting || chat.trim() === ""}
-                className="self-end cursor-pointer"
+                className="self-end"
               >
                 {isPosting ? "Posting..." : "Post"}
               </Button>
             </div>
 
-            {/* Show Comments */}
             {isLoading ? (
               <div>Loading discussions...</div>
             ) : isError ? (
@@ -226,24 +210,18 @@ export default function Videos({ video, title, videosId, id, no, subject }) {
                     <div className="flex items-center gap-2 mb-2">
                       <img
                         src={
-                          `${import.meta.env.VITE_API_URL}/images/${
-                            chatItem?.userId?.image
-                          }` || "/default.png"
+                          `${import.meta.env.VITE_API_URL}/images/${chatItem?.userId?.image}` ||
+                          "/default.png"
                         }
                         alt={chatItem?.userId?.name || "User"}
                         className="w-10 h-10 rounded-full bg-muted"
                       />
                       <div>
-                        <div className="font-semibold">
-                          {chatItem?.userId?.name}
-                        </div>
+                        <div className="font-semibold">{chatItem?.userId?.name}</div>
                         <div className="text-sm text-muted-foreground">
-                          {formatDistanceToNowStrict(
-                            parseISO(chatItem.createdAt),
-                            {
-                              addSuffix: true,
-                            }
-                          )}
+                          {formatDistanceToNowStrict(parseISO(chatItem.createdAt), {
+                            addSuffix: true,
+                          })}
                         </div>
                       </div>
                     </div>
@@ -255,6 +233,7 @@ export default function Videos({ video, title, videosId, id, no, subject }) {
           </div>
         </TabsContent>
       </Tabs>
+
       {showStarRating && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
           <StarRatingPage
