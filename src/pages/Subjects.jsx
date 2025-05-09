@@ -12,9 +12,8 @@ export default function Subjects() {
   const { data, isLoading, isError } = useGetASyllbusByIdQuery(id);
   const [searchQuery, setSearchQuery] = useState("");
 
-  if (isError || !data || data.length === 0) {
-    return <div className="p-4">No subject found.</div>;
-  }
+  const showSkeleton = isLoading || isError || !data;
+
 
   const subject = data?.classes?.filter((cla) => cla.no == no);
 
@@ -56,7 +55,7 @@ export default function Subjects() {
 
         {/* Subject Cards */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {isLoading
+          {showSkeleton
             ? Array.from({ length: 8 }).map((_, index) => (
                 <SubjectsCard key={index} isLoading={true} />
               ))
