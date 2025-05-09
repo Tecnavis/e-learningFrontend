@@ -8,9 +8,15 @@ export default function VideoPage() {
          
        const { data, isLoading, isError } = useGetASyllbusByIdQuery(id)
       
-        if (isLoading) return <div className="p-4">Loading...</div>
-        if (isError || !data || data.length === 0) return <div className="p-4">No subject found.</div>
-    
+       const showSkeleton = isLoading || isError || !data;
+
+  if (showSkeleton) {
+    return (
+      <div className="flex items-center justify-center h-screen px-4">
+        <Skeleton className="w-full max-w-5xl h-[80vh] rounded-xl" />
+      </div>
+    );
+  }
       
       const subject = data?.classes.filter((cla) => cla.no == no)
   
