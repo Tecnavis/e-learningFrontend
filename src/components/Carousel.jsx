@@ -2,6 +2,8 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { useGetAllBannerQuery } from "@/app/service/bannderData"
+import { Skeleton } from "@/components/ui/skeleton"
+
 
 export function Carousel() {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -27,8 +29,21 @@ export function Carousel() {
     setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1))
   }
 
-  if (isLoading) return <h1>Loading...</h1>
-  if (isError || !Array.isArray(data)) return <h1>Oops! Something went wrong.</h1>
+  if (isLoading) {
+    return (
+      <div className="w-full h-[200px] md:h-[300px] lg:h-[500px]">
+        <Skeleton className="w-full h-full" />
+      </div>
+    )
+  }
+
+  if (isError || !Array.isArray(data)) {
+    return (
+      <div className="w-full h-[200px] md:h-[300px] lg:h-[500px] flex items-center justify-center bg-gray-100 text-gray-500">
+        Failed to load carousel. Please try again later.
+      </div>
+    )
+  }
 
   return (
     <div className="relative overflow-hidden">
