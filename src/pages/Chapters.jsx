@@ -9,9 +9,9 @@ export default function ChaptersPage() {
   
      const { data, isLoading, isError } = useGetASyllbusByIdQuery(id)
     
-      if (isLoading) return <div className="p-4">Loading...</div>
-      if (isError || !data || data.length === 0) return <div className="p-4">No subject found.</div>
   
+      const showSkeleton = isLoading || isError || !data;
+
     
     const subject = data?.classes.filter((cla) => cla.no == no)
 
@@ -19,7 +19,7 @@ export default function ChaptersPage() {
   
   return (
     <>
-    <Chapters  isLoading = { isLoading }  chapters = {chapter?.[0].chapters}   id = {id} no = {no} chapterId = {chapterId} />
+    <Chapters  isLoading = { showSkeleton }  chapters = {chapter?.[0].chapters}   id = {id} no = {no} chapterId = {chapterId} />
     </>
   )
 }
