@@ -1,4 +1,5 @@
 import { useGetASyllbusByIdQuery } from '@/app/service/syllbusData';
+import { Skeleton } from "@/components/ui/skeleton";
 import Videos from '@/components/video/Video'
 import React from 'react'
 import { useParams } from 'react-router-dom';
