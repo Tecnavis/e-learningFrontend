@@ -12,7 +12,7 @@ export default defineConfig({
   preview: {
     host: '0.0.0.0',
     port: 7867,
-    allowedHosts: ['e-learning-5x2n.onrender.com'], 
+    allowedHosts: ['user.cognixlearn.com'], 
   },
   resolve: {
     alias: {
