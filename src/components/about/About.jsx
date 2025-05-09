@@ -1,15 +1,15 @@
-import {
-  ArrowRight,
-  Linkedin,
-  Mail,
-  Twitter,
-} from "lucide-react";
+// import {
+//   ArrowRight,
+//   Linkedin,
+//   Mail,
+//   Twitter,
+// } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent } from "@/components/ui/tabs";
-import { Separator } from "@/components/ui/separator";
-import { Link } from "react-router-dom";
+// import { Button } from "@/components/ui/button";
+// import { Card, CardContent } from "@/components/ui/card";
+// import { Tabs, TabsContent } from "@/components/ui/tabs";
+// import { Separator } from "@/components/ui/separator";
+// import { Link } from "react-router-dom";
 
 export const metadata = {
   title: "About Us | Company Name",
@@ -40,7 +40,7 @@ export default function About() {
       </div>
 
       {/* Stats Section */}
-      <div className="mb-20 grid animate-fade-in-up animation-delay-200 gap-4 md:grid-cols-3 md:gap-8">
+      {/* <div className="mb-20 grid animate-fade-in-up animation-delay-200 gap-4 md:grid-cols-3 md:gap-8">
         <Card className="group overflow-hidden transition-all duration-300 hover:shadow-lg">
           <CardContent className="flex flex-col items-center justify-center p-6 text-center">
             <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 transition-all duration-300 group-hover:scale-110 group-hover:bg-primary/20">
@@ -74,10 +74,10 @@ export default function About() {
             </p>
           </CardContent>
         </Card>
-      </div>
+      </div> */}
 
       {/* Our Story Section */}
-      <div className="mb-20">
+      {/* <div className="mb-20">
         <div className="mb-10 flex flex-col items-center text-center">
           <h2 className="animate-fade-in-up animation-delay-300 text-3xl font-bold tracking-tight sm:text-4xl">
             Our Story
@@ -109,10 +109,10 @@ export default function About() {
             />
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Values Section */}
-      <div className="mb-20">
+      {/* <div className="mb-20">
         <div className="mb-10 flex flex-col items-center text-center">
           <h2 className="animate-fade-in-up animation-delay-600 text-3xl font-bold tracking-tight sm:text-4xl">
             Our Values
@@ -172,10 +172,10 @@ export default function About() {
             </Card>
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* Team Section */}
-      <div className="mb-20">
+      {/* <div className="mb-20">
         <div className="mb-10 flex flex-col items-center text-center">
           <h2 className="animate-fade-in-up animation-delay-1300 text-3xl font-bold tracking-tight sm:text-4xl">
             Meet Our Team
@@ -250,10 +250,10 @@ export default function About() {
           </TabsContent>
        
         </Tabs>
-      </div>
+      </div> */}
 
       {/* CTA Section */}
-      <div className="animate-fade-in-up animation-delay-1400 rounded-2xl bg-gradient-to-r from-primary/10 via-primary/5 to-background p-8 md:p-12">
+      {/* <div className="animate-fade-in-up animation-delay-1400 rounded-2xl bg-gradient-to-r from-primary/10 via-primary/5 to-background p-8 md:p-12">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             Ready to work with us?
@@ -271,7 +271,7 @@ export default function About() {
             </Button>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
