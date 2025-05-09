@@ -3,6 +3,7 @@ import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { ArrowLeft, Maximize2, Minimize2 } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetASpecialDaysByIdQuery } from "@/app/service/specialDayData";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Pdf() {
   const [tabValue, setTabValue] = useState("documentation");
@@ -31,15 +32,13 @@ export default function Pdf() {
     }
   };
 
-  // Use Google Drive PREVIEW link
   const getGoogleDrivePreviewLink = (url) => {
     if (!url) return "";
     const match = url.match(/\/d\/(.*?)\//);
     return match ? `https://drive.google.com/file/d/${match[1]}/preview` : url;
   };
 
-  if (isLoading) return <h1>Loading...</h1>;
-  if (isError) return <h1>Oops! Something went wrong.</h1>;
+  const showSkeleton = isLoading || isError || !data;
 
   return (
     <div
@@ -54,39 +53,43 @@ export default function Pdf() {
             onClick={() => navigate(-1)}
             className="h-6 w-6 cursor-pointer"
           />
-          {data?.title}
+          {showSkeleton ? (
+            <Skeleton className="h-6 w-32 rounded-md" />
+          ) : (
+            data?.title
+          )}
         </h2>
         <button
           onClick={toggleFullscreen}
-          className="p-2 border rounded  cursor-pointer transition"
+          className="p-2 border rounded cursor-pointer transition"
         >
           {isFullscreen ? (
             <Minimize2 className="w-5 h-5 text-violet-600" />
           ) : (
-            <Maximize2 className="w-5 h-5  text-violet-600" />
+            <Maximize2 className="w-5 h-5 text-violet-600" />
           )}
         </button>
       </div>
 
-      <Tabs
-        value={tabValue}
-        onValueChange={setTabValue}
-        className="w-full"
-      >
+      <Tabs value={tabValue} onValueChange={setTabValue} className="w-full">
         <TabsContent value="documentation">
           <div
             className={`rounded-xl overflow-hidden shadow-md ${
               isFullscreen ? "w-full h-[calc(100vh-60px)]" : "h-[80vh]"
             }`}
           >
-            <iframe
-              src={getGoogleDrivePreviewLink(data?.pdf)}
-              className="w-full h-full"
-              frameBorder="0"
-              title="PDF Viewer"
-              allow="autoplay"
-              sandbox="allow-scripts allow-same-origin"
-            />
+            {showSkeleton ? (
+              <Skeleton className="w-full h-full rounded-xl" />
+            ) : (
+              <iframe
+                src={getGoogleDrivePreviewLink(data?.pdf)}
+                className="w-full h-full"
+                frameBorder="0"
+                title="PDF Viewer"
+                allow="autoplay"
+                sandbox="allow-scripts allow-same-origin"
+              />
+            )}
           </div>
         </TabsContent>
       </Tabs>
