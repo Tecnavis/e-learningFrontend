@@ -7,30 +7,33 @@ export function SubjectsCard({ isLoading, subject, id, no }) {
   return (
     <>
       {!isLoading ? (
-        <Card
-          className="overflow-hidden transition-all hover:shadow-md cursor-pointer"
+         <Card
+          className="w-full max-w-sm overflow-hidden cursor-pointer shadow-sm hover:shadow-md transition-all !p-0 !m-0"
           onClick={() =>
             navigate(`/subjects/${id}/${no}/chapters/${subject._id}`)
           }
         >
-          {/* <Link href={`/subjects/chapters/${subject.id}`}> */}
-          <div className="relative aspect-video">
+          <div className="relative w-full h-40">
+            {" "}
             <img
               src={
-                `${import.meta.env.VITE_API_URL}/images/${subject.image}` ||
-                "/placeholder.svg"
+                subject.image
+                  ? `${import.meta.env.VITE_API_URL}/images/${subject.image}`
+                  : "/placeholder.svg"
               }
               alt={subject.title}
-              className="object-cover"
+              className="w-full h-full object-cover block m-0 p-0"
             />
           </div>
-          <CardContent className="p-4">
-            <h3 className="font-semibold line-clamp-2 mb-2">{subject.title}</h3>
-            <div className="text-sm text-muted-foreground mb-2">
+
+          <CardContent className="p-3">
+            <h3 className="font-semibold text-sm line-clamp-2 mb-1">
+              {subject.title}
+            </h3>
+            <div className="text-xs text-muted-foreground">
               Instructor: {subject.author}
             </div>
           </CardContent>
-          {/* </Link> */}
         </Card>
       ) : (
         Array.from({ length: 8 }).map((_, index) => (
