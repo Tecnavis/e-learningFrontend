@@ -153,7 +153,7 @@ const handleLogout = async (e) => {
               className="h-32 w-32 overflow-hidden rounded-full border-4 border-white bg-white shadow-lg"
             >
               <img
-                src={`${import.meta.env.VITE_API_URL}/images/${user?.image}` || "/placeholder.svg"}
+                src={`${user?.image}` || "/placeholder.svg"}
                 alt={user?.name}
                 width={128}
                 height={128}
@@ -232,7 +232,7 @@ const handleLogout = async (e) => {
                   <div className="flex flex-col items-center justify-center">
                     <div className="relative mb-4">
                       <Avatar className="h-24 w-24">
-                        <AvatarImage src={`${import.meta.env.VITE_API_URL}/images/${formData.image}`} />
+                        <AvatarImage src={`${formData.image}`} />
                         <AvatarFallback>
                           <User className="h-12 w-12" />
                         </AvatarFallback>
