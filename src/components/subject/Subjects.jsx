@@ -18,7 +18,7 @@ export function SubjectsCard({ isLoading, subject, id, no }) {
             <img
               src={
                 subject.image
-                  ? `${import.meta.env.VITE_API_URL}/images/${subject.image}`
+                  ? `${subject.image}`
                   : "/placeholder.svg"
               }
               alt={subject.title}
