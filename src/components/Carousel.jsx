@@ -54,7 +54,7 @@ export function Carousel() {
         {slides.map((slide, index) => (
           <div key={index} className="w-full flex-shrink-0 relative">
             <img
-              src={`${import.meta.env.VITE_API_URL}/images/${slide}`}
+              src={`${slide}`}
               alt={"carousel image"}
               className="w-full h-[200px] md:h-[300px] lg:h-[500px] object-cover"
             />
