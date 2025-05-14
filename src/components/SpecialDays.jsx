@@ -27,7 +27,7 @@ export function SpecialDays() {
             >
               <div className="h-24 sm:h-28 md:h-32 w-full">
                 <img
-                  src={`${import.meta.env.VITE_API_URL}/images/${day.image}`}
+                  src={`${day.image}`}
                   alt={day.title}
                   className="h-full w-full object-cover"
                 />
