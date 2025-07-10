@@ -15,19 +15,26 @@ import { Route, Routes } from 'react-router-dom'
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route element= {<ProtectedRoutes />}>
-        <Route  path='/' element= {<Home />} />
-        <Route  path='/subjects/:id/:no' element= {<Subjects />} />
-        <Route  path='/subjects/:id/:no/chapters/:chapterId' element= {<ChaptersPage />} />
-        <Route  path='/subjects/:id/:no/chapters/:chapterId/video/:videoId' element= {<VideoPage />} />
-        <Route  path='/special-days' element= {<SpecialDaysCard />} />
-        <Route  path='/special-days/:id' element= {<Pdf />} />
-        <Route  path='/about' element= {<AboutPage />} />
-        <Route  path='/contact' element= {<ContactPage />} />
+      <Route path="/" element={<Home />} />
+      <Route path="/sign-in" element={<SignInPage />} />
+      <Route path="/sign-up" element={<SignUpPage />} />
 
+      <Route element={<ProtectedRoutes />}>
+        <Route path="/subjects/:id/:no" element={<Subjects />} />
+        <Route
+          path="/subjects/:id/:no/chapters/:chapterId"
+          element={<ChaptersPage />}
+        />
+        <Route
+          path="/subjects/:id/:no/chapters/:chapterId/video/:videoId"
+          element={<VideoPage />}
+        />
+        <Route path="/special-days" element={<SpecialDaysCard />} />
+        <Route path="/special-days/:id" element={<Pdf />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
       </Route>
-       <Route  path='/sign-in' element= {<SignInPage />} />
-        <Route  path='/sign-up' element= {<SignUpPage />} />
     </Routes>
-  )
+  );
 }
+
