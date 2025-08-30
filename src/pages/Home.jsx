@@ -12,7 +12,7 @@ export default function Home() {
   const navigate = useNavigate();
 
 
-   const adRef = useRef<HTMLDivElement | null>(null);
+   const adRef = useRef(null);
 
   useEffect(() => {
     try {
