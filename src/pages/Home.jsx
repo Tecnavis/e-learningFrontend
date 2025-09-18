@@ -133,16 +133,6 @@ export default function Home() {
         </div>
         <SpecialDays />
       </section>
-
-           <footer className="w-full border-t border-gray-200 bg-gray-50 text-center py-3 mt-8 text-xs text-gray-600">
-        © {new Date().getFullYear()} CognixLearn ·{" "}
-        <Link
-          to="/privacy-policy"
-          className="underline hover:text-gray-800 transition-colors"
-        >
-          Privacy Policy
-        </Link>
-      </footer>
     </>
   );
 }

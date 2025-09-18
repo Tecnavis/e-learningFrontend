@@ -23,13 +23,13 @@ export function Footer() {
 
         {/* Footer links */}
         <div className="flex gap-6 text-sm">
-          <Link to="#" className="text-muted-foreground hover:text-foreground">
+          <Link to="/privacy-policy" className="text-muted-foreground hover:text-foreground">
             Privacy Policy
           </Link>
-          <Link to="#" className="text-muted-foreground hover:text-foreground">
+          <Link to="/privacy-policy" className="text-muted-foreground hover:text-foreground">
             Terms of Service
           </Link>
-          <Link to="#" className="text-muted-foreground hover:text-foreground">
+          <Link to="/privacy-policy" className="text-muted-foreground hover:text-foreground">
             Cookie Policy
           </Link>
         </div>
@@ -37,3 +37,4 @@ export function Footer() {
     </footer>
   );
 }
+
