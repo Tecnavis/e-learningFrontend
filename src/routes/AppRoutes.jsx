@@ -6,6 +6,7 @@ import SignUpPage from '@/pages/auth/SignUp'
 import ChaptersPage from '@/pages/Chapters'
 import ContactPage from '@/pages/Contact'
 import Home from '@/pages/Home'
+import PoliciesPage from '@/pages/policy/Policy'
 import Subjects from '@/pages/Subjects'
 import VideoPage from '@/pages/Video'
 import ProtectedRoutes from '@/utils/ProtectedRoutes'
@@ -18,6 +19,7 @@ export default function AppRoutes() {
       <Route path="/" element={<Home />} />
 {/*       <Route path="/sign-in" element={<SignInPage />} /> */}
 {/*       <Route path="/sign-up" element={<SignUpPage />} /> */}
+      <Route path="/privacy-policy" element={<PoliciesPage />} />
 
 {/*       <Route element={<ProtectedRoutes />}> */}
         <Route path="/subjects/:id/:no" element={<Subjects />} />

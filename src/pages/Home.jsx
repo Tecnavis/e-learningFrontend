@@ -4,7 +4,7 @@ import { FilterBox } from "@/components/Filter-box";
 import { SpecialDays } from "@/components/SpecialDays";
 import { ArrowRight } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [selectedCategories, setSelectedCategories] = useState(null);
@@ -34,17 +34,18 @@ export default function Home() {
       />
       <ClassList selectedCategories={selectedCategories} />
       
-      <div className="my-4 flex justify-center">
-      <ins
-        className="adsbygoogle"
-        style={{ display: "block", width: "100%", height: "100px" }}
-        data-ad-client="ca-pub-6820691540388182"
-        data-ad-slot="1420763964"
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-        ref={adRef}
-      />
-    </div>
+   <div className="w-full my-4">
+  <ins
+    className="adsbygoogle block"
+    style={{ display: "block", width: "100%", height: "100px" }}
+    data-ad-client="ca-pub-6820691540388182"
+    data-ad-slot="1420763964"
+    data-ad-format="auto"
+    data-full-width-responsive="true"
+    ref={adRef}
+  />
+</div>
+
 
       <section className="container mx-auto px-4 py-4">
         <div className="flex justify-between">
@@ -62,6 +63,16 @@ export default function Home() {
         </div>
         <SpecialDays />
       </section>
+
+           <footer className="w-full border-t border-gray-200 bg-gray-50 text-center py-3 mt-8 text-xs text-gray-600">
+        © {new Date().getFullYear()} CognixLearn ·{" "}
+        <Link
+          to="/privacy-policy"
+          className="underline hover:text-gray-800 transition-colors"
+        >
+          Privacy Policy
+        </Link>
+      </footer>
     </>
   );
 }
