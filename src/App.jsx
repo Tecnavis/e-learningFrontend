@@ -5,7 +5,6 @@ import { ThemeProvider } from "next-themes";
 import AppRoutes from "./routes/AppRoutes";
 
 export default function App() {
-  const user = JSON.parse(localStorage.getItem("user"));
 
   return (
     <ThemeProvider
@@ -15,7 +14,7 @@ export default function App() {
       disableTransitionOnChange
     >
       <div className="flex flex-col min-h-screen">
-        {user && user.token && <Navbar />}
+         <Navbar />
         <div className="flex-grow">
           <AppRoutes />
         </div>
