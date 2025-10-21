@@ -11,6 +11,12 @@ export function Navbar() {
   const [user, setUser] = useState(userData?.userDetails);
   const [showProfile, setShowProfile] = useState(false);
 
+
+  const handleProfileShow = () => {
+    if(!user.token) return
+    setShowProfile(!showProfile)
+  }
+
   return (
     <div className="relative">
       <header className="sticky  top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 flex justify-center items-center">
@@ -87,13 +93,13 @@ export function Navbar() {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => setShowProfile(!showProfile)}
+              onClick={handleProfileShow}
               className={"cursor-pointer"}
             >
-              {user.image ? (
+              {user?.image ? (
                 <img
                   className="w-8 h-8 p-1 rounded-full ring-1 ring-gray-300 dark:ring-gray-500"
-                  src={`${user.image}`}
+                  src={`${user?.image}`}
                   alt="Bordered avatar"
                 />
               ) : (
