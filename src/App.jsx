@@ -19,7 +19,7 @@ export default function App() {
         <div className="flex-grow">
           <AppRoutes />
         </div>
-        {user && user.token && <Footer />}
+        <Footer />
       </div>
     </ThemeProvider>
   );
