@@ -29,40 +29,66 @@ export default function Home() {
     <>
       <Carousel />
 
-      {/* ── Business Description Section ── */}
-      <section className="bg-gradient-to-r from-primary/10 to-primary/5 border-b">
-        <div className="container mx-auto px-4 py-10">
-          <div className="text-center md:text-left">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 tracking-tight">
-              Learn Smarter with{" "}
-              <span className="text-primary">Cognix Learn</span>
-            </h1>
-            <p className="text-muted-foreground text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl md:mx-0 mx-auto">
-              Cognix Learn is your all-in-one e-learning platform offering
-              structured courses, chapter-wise video lessons, study materials,
-              and live discussions — all designed to help students excel. From
-              school subjects to competitive exams, we make quality education
-              accessible for everyone, everywhere.
-            </p>
-            <div className="flex flex-wrap gap-8 mt-6 justify-center md:justify-start">
-              <div className="flex flex-col items-center md:items-start">
-                <span className="text-2xl font-bold text-primary">500+</span>
-                <span className="text-xs text-muted-foreground">Video Lessons</span>
-              </div>
-              <div className="w-px bg-border hidden md:block" />
-              <div className="flex flex-col items-center md:items-start">
-                <span className="text-2xl font-bold text-primary">50+</span>
-                <span className="text-xs text-muted-foreground">Subjects Covered</span>
-              </div>
-              <div className="w-px bg-border hidden md:block" />
-              <div className="flex flex-col items-center md:items-start">
-                <span className="text-2xl font-bold text-primary">10k+</span>
-                <span className="text-xs text-muted-foreground">Students Enrolled</span>
-              </div>
-            </div>
-          </div>
+     {/* ── Business Description Section ── */}
+<section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-primary/5 border-b">
+  
+  {/* Background Glow Effects */}
+  <div className="absolute -top-20 -left-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl opacity-30"></div>
+  <div className="absolute -bottom-20 -right-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl opacity-30"></div>
+
+  <div className="container mx-auto px-4 py-14 relative z-10">
+    
+    <div className="max-w-5xl mx-auto text-center md:text-left">
+      
+      {/* Heading */}
+      <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4 leading-tight tracking-tight">
+        Learn Smarter with{" "}
+        <span className="bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
+          Cognix Learn
+        </span>
+      </h1>
+
+      {/* Sub Text */}
+      <p className="text-muted-foreground text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl md:mx-0 mx-auto">
+        Cognix Learn is your all-in-one e-learning platform offering
+        structured courses, chapter-wise video lessons, study materials,
+        and live discussions — all designed to help students excel.
+        From school subjects to competitive exams, we make quality
+        education accessible for everyone, everywhere.
+      </p>
+
+      {/* CTA Buttons */}
+      <div className="mt-6 flex flex-wrap gap-4 justify-center md:justify-start">
+        <button className="px-6 py-3 rounded-xl bg-primary text-white font-medium shadow-lg hover:scale-105 transition-all duration-300">
+          Get Started
+        </button>
+        <button className="px-6 py-3 rounded-xl border border-border hover:bg-muted transition-all duration-300">
+          Explore Courses
+        </button>
+      </div>
+
+      {/* Stats */}
+      <div className="grid grid-cols-3 gap-6 mt-10 max-w-md md:max-w-none mx-auto md:mx-0">
+        
+        <div className="bg-background/60 backdrop-blur-lg border rounded-2xl p-4 text-center md:text-left shadow-sm hover:shadow-md transition">
+          <h3 className="text-2xl font-bold text-primary">100+</h3>
+          <p className="text-xs text-muted-foreground">Video Lessons</p>
         </div>
-      </section>
+
+        <div className="bg-background/60 backdrop-blur-lg border rounded-2xl p-4 text-center md:text-left shadow-sm hover:shadow-md transition">
+          <h3 className="text-2xl font-bold text-primary">50+</h3>
+          <p className="text-xs text-muted-foreground">Subjects Covered</p>
+        </div>
+
+        <div className="bg-background/60 backdrop-blur-lg border rounded-2xl p-4 text-center md:text-left shadow-sm hover:shadow-md transition">
+          <h3 className="text-2xl font-bold text-primary">10k+</h3>
+          <p className="text-xs text-muted-foreground">Students Enrolled</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
 
       <FilterBox
         selectedCategories={selectedCategories}
