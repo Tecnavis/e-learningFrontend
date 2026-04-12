@@ -9,6 +9,7 @@ import { formatDistanceToNowStrict, parseISO } from "date-fns";
 import { ArrowLeft, Maximize2, Minimize2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import StarRatingPage from "@/pages/StarRating";
+import AdBanner from "@/components/AdBanner";
 
 export default function Videos({ video, title, videosId, id, no, subject }) {
   const [tabValue, setTabValue] = useState("documentation");
@@ -40,15 +41,11 @@ export default function Videos({ video, title, videosId, id, no, subject }) {
   }, []);
 
   useEffect(() => {
-    if (window.adsbygoogle && adRef.current) {
-      const alreadyLoaded = adRef.current.getAttribute("data-ad-status") === "done";
-      if (!alreadyLoaded) {
-        try {
-          (window.adsbygoogle = window.adsbygoogle || []).push({});
-          adRef.current.setAttribute("data-ad-status", "done");
-        } catch (e) {
-          console.error("AdSense injection failed", e);
-        }
+    if (!showAd && window.adsbygoogle) {
+      try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (e) {
+        console.error("AdSense injection failed", e);
       }
     }
   }, [showAd]);
@@ -100,16 +97,19 @@ export default function Videos({ video, title, videosId, id, no, subject }) {
 
   if (showAd) {
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
-        <ins
-          className="adsbygoogle"
-          style={{ display: "block", width: "100%", height: "100%" }}
-          data-ad-client="ca-pub-6820691540388182"
-          data-ad-slot="1420763964"
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-          ref={adRef}
-        />
+      <div className="fixed inset-0 flex flex-col items-center justify-center bg-white z-50 p-4">
+        <p className="text-sm text-muted-foreground mb-3">Ad – loading your lesson…</p>
+        <div className="w-full max-w-2xl">
+          <ins
+            className="adsbygoogle"
+            style={{ display: "block", width: "100%", minHeight: "280px" }}
+            data-ad-client="ca-pub-6820691540388182"
+            data-ad-slot="7796622789"
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+            ref={adRef}
+          />
+        </div>
       </div>
     );
   }
@@ -122,7 +122,7 @@ export default function Videos({ video, title, videosId, id, no, subject }) {
       </h2>
 
       {video?.video && (
-        <div className="relative mb-8 bg-black rounded-lg overflow-hidden">
+        <div className="relative mb-4 bg-black rounded-lg overflow-hidden">
           <iframe
             className="w-full aspect-video"
             src={getYoutubeEmbedLink(video.video)}
@@ -133,6 +133,9 @@ export default function Videos({ video, title, videosId, id, no, subject }) {
           />
         </div>
       )}
+
+      {/* ── AdSense Banner below video ── */}
+      <AdBanner className="mb-6" />
 
       <Tabs value={tabValue} onValueChange={setTabValue} className="w-full mt-8">
         <TabsList>

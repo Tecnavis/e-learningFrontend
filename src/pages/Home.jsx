@@ -3,27 +3,14 @@ import { Carousel } from "@/components/Carousel";
 import ClassList from "@/components/Class-list";
 import { FilterBox } from "@/components/Filter-box";
 import { SpecialDays } from "@/components/SpecialDays";
+import AdBanner from "@/components/AdBanner";
 import { ArrowRight } from "lucide-react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [selectedCategories, setSelectedCategories] = useState(null);
   const navigate = useNavigate();
-
-  const adRef = useRef(null);
-  const adPushed = useRef(false);
-
-  useEffect(() => {
-    // Guard against double-push (React StrictMode / re-renders)
-    if (adPushed.current) return;
-    adPushed.current = true;
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-      console.error("AdSense error", e);
-    }
-  }, []);
 
   return (
     <>
@@ -97,17 +84,7 @@ export default function Home() {
       <ClassList selectedCategories={selectedCategories} />
 
       {/* ── Google AdSense Banner ── */}
-      <div className="w-full my-4 px-2">
-        <ins
-          className="adsbygoogle"
-          style={{ display: "block" }}
-          data-ad-client="ca-pub-6820691540388182"
-          data-ad-slot="1420763964"
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-          ref={adRef}
-        />
-      </div>
+      <AdBanner className="my-4 px-2" />
 
       <section className="container mx-auto px-4 py-4">
         <div className="flex justify-between">

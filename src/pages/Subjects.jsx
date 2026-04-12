@@ -1,6 +1,7 @@
 import { useGetASyllbusByIdQuery } from "@/app/service/syllbusData";
 import { SubjectsCard } from "@/components/subject/Subjects";
-import { Input } from "@/components/ui/input"; // Don't forget this!
+import { Input } from "@/components/ui/input";
+import AdBanner from "@/components/AdBanner";
 import { ArrowLeft, Search } from "lucide-react";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -69,6 +70,9 @@ export default function Subjects() {
                 />
               ))}
         </div>
+
+        {/* AdSense Banner */}
+        <AdBanner className="mt-8" />
       </section>
     </>
   );

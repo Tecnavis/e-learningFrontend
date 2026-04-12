@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
+import AdBanner from "@/components/AdBanner";
 import { ArrowLeft, Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Star } from "lucide-react";
@@ -142,6 +143,9 @@ export default function Chapters({ isLoading, chapters, id, no, chapterId }) {
           </div>
         </TabsContent>
       </Tabs>
+
+      {/* AdSense Banner */}
+      <AdBanner className="mt-8" />
     </div>
   );
 }
